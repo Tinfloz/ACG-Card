@@ -9,7 +9,7 @@ const subscribeToTags = async (req, res) => {
             throw "no params";
         };
         const user = await User.findById(req.user._id);
-        const tag = await Tag.findOne({ tagName });
+        const tag = await Tag.findOne({ tag: tagName });
         user.subscribedTags.push(tag._id);
         await user.save();
         res.status(200).json({
@@ -32,13 +32,8 @@ const unsubscribeTags = async (req, res) => {
         };
         const user = await User.findById(req.user._id);
         const tag = await Tag.findOne({ tagName });
-        for (let i of user.subscribedTags) {
-            if (i === tag._id.toString()) {
-                let index = user.subscribedTags.indexOf(i);
-                user.subscribedTags.splice(index, 1);
-                break
-            };
-        };
+        user.subscribedTags = user.subscribedTags.filter(id => id !== tag._id.toString());
+        await user.save()
         res.status(200).json({
             success: true,
             tag: tagName
@@ -58,12 +53,7 @@ const getContentByTagsAndUsers = async (req, res) => {
             throw "no params";
         };
         const user = await User.findOne({ userName });
-        let contentArray = [];
-        for await (let i of Content.find()) {
-            if (user.subscribedTags.includes(i._id.toString())) {
-                contentArray.push(i.contentStr);
-            };
-        };
+        let contentArray = (await Content.find({ _id: { $in: user.subscribedTags } })).map(el => el.contentStr);
         res.status(200).json({
             success: true,
             contentArray
@@ -76,8 +66,29 @@ const getContentByTagsAndUsers = async (req, res) => {
     };
 };
 
+const getEventsByTagAndUsers = async (req, res) => {
+    try {
+        const { userName } = req.params;
+        if (!userName) {
+            throw "no params";
+        };
+        const user = await User.findOne({ userName });
+        const eventsArray = (await Event.find({ _id: { $in: user.subscribedTags } })).map(el => el);
+        res.status(200).json({
+            success: true,
+            eventsArray
+        });
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            error: error.errors?.[0]?.message || error
+        });
+    };
+};
+
 export {
     subscribeToTags,
     unsubscribeTags,
-    getContentByTagsAndUsers
+    getContentByTagsAndUsers,
+    getEventsByTagAndUsers
 }

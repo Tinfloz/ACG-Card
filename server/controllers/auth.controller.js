@@ -14,7 +14,8 @@ const signUp = async (req, res) => {
         if (email.split("@")[1] !== "acg-world.com") {
             throw `${email.split("@")[1]} not allowed`;
         };
-        const user = await User.create(req.body);
+        const userName = email.split(" ")[0].split(".")[0]
+        const user = await User.create({ ...req.body, userName });
         if (!user) {
             throw "user could not be created!"
         };
@@ -50,6 +51,7 @@ const signIn = async (req, res) => {
             user: { ...user._doc, token }
         });
     } catch (error) {
+        console.log(error)
         res.status(500).json({
             success: false,
             error: error.errors?.[0]?.message || error

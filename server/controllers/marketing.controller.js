@@ -1,9 +1,11 @@
 import Tag from "../models/tags.model.js";
 import Content from "../models/content.model.js";
+import Event from "../models/event.model.js";
 
 const createContentTag = async (req, res) => {
     try {
         const { tagName } = req.body;
+        console.log(tagName)
         if (!tagName) {
             throw "tag name not found"
         };
@@ -52,8 +54,12 @@ const createMarketingContent = async (req, res) => {
         if (!contentStr || !tag) {
             throw "no tag / content string"
         };
+        const selectedTag = await Tag.findOne({ tag });
+        if (!selectedTag) {
+            throw "no such tag found"
+        }
         const newContent = await Content.create({
-            contentStr, tag
+            contentStr, tag: selectedTag._id
         });
         if (!newContent) {
             throw "content could not be created"
@@ -95,12 +101,8 @@ const getContentByTag = async (req, res) => {
         if (!tag) {
             throw "no tag found"
         };
-        let contentArray = [];
-        for await (let i of Content.find()) {
-            if (i.tag === tag) {
-                contentArray.push(i);
-            };
-        };
+        const selectedTag = await Tag.findOne({ tag })
+        let contentArray = (await Content.find({ tag: selectedTag._id })).map(el => el.contentStr);
         res.status(200).json({
             success: true,
             conetent: contentArray
@@ -113,10 +115,83 @@ const getContentByTag = async (req, res) => {
     };
 };
 
+const createNewEvent = async (req, res) => {
+    try {
+        const { eventName, location, date, tag } = req.body;
+        if (!eventName || !location || !date || !tag) {
+            throw "info missing"
+        };
+        const selectedTag = await Tag.findOne({ tag });
+        if (!selectedTag) {
+            throw "no such tag found"
+        };
+        const event = await Event.create({
+            eventName, location, date, tag: selectedTag._id
+        });
+        if (!event) {
+            throw "event could not be created"
+        };
+        res.status(200).json({
+            success: true
+        });
+    } catch (error) {
+        res.status(400).json({
+            success: true,
+            error: error.errors?.[0]?.message || error
+        });
+    };
+};
+
+const getAllEventsByTag = async (req, res) => {
+    try {
+        const { tag } = req.params;
+        if (!tag) {
+            throw "no params"
+        };
+        const selectedTag = await Tag.findOne({ tag });
+        if (!selectedTag) {
+            throw "no such tag found"
+        };
+        const eventsArray = (await Event.find({ tag: selectedTag._id })).map(el => el);
+        res.status(200).json({
+            success: true,
+            eventsArray
+        });
+    } catch (error) {
+        res.status(400).json({
+            success: true,
+            error: error.errors?.[0]?.message || error
+        });
+    };
+};
+
+const deleteEvent = async (req, res) => {
+    try {
+        const { id } = req.params;
+        if (!id) {
+            throw "no params"
+        };
+        const event = await Event.findById(id);
+        await event.remove();
+        res.status(200).json({
+            success: true,
+            id
+        });
+    } catch (error) {
+        res.status(400).json({
+            success: true,
+            error: error.errors?.[0]?.message || error
+        });
+    };
+};
+
 export {
     createContentTag,
     deleteContentTag,
     createMarketingContent,
     deleteMarketingContent,
-    getContentByTag
+    getContentByTag,
+    createNewEvent,
+    deleteEvent,
+    getAllEventsByTag
 }

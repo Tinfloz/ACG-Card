@@ -1,13 +1,14 @@
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
 
-export const auth = async (req, res) => {
+export const auth = async (req, res, next) => {
     try {
         if (!req.headers) {
             throw "no headers"
         };
         // extract bearer token from header
         const token = req.headers.authorization.split(" ")[1];
+        console.log(token, "in midd")
         if (!token) {
             throw "no token";
         };
