@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Flex, Text, useBreakpointValue, InputGroup, InputLeftAddon, Input, HStack, Button } from "@chakra-ui/react";
 import { useDispatch } from 'react-redux';
-import { createNewTag, resetTagHelpers } from '../reducers/tag.reducers/tag.slice';
+import { createNewTag, resetTagHelpers, resetTags } from '../reducers/tag.reducers/tag.slice';
 
 const CreateTag = () => {
 
@@ -18,6 +18,10 @@ const CreateTag = () => {
     const handleClick = async () => {
         await dispatch(createNewTag(tagDetails));
     }
+
+    useEffect(() => {
+        return () => dispatch(resetTags())
+    }, [])
 
     return (
         <>

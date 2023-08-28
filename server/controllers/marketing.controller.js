@@ -47,6 +47,21 @@ const deleteContentTag = async (req, res) => {
     };
 };
 
+const getAllTags = async (req, res) => {
+    try {
+        const tags = await Tag.find();
+        res.status(200).json({
+            success: true,
+            tags
+        })
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            error: error.errors?.[0]?.message || error
+        });
+    };
+};
+
 const createMarketingContent = async (req, res) => {
     try {
         const { contentStr } = req.body;
@@ -188,6 +203,7 @@ const deleteEvent = async (req, res) => {
 export {
     createContentTag,
     deleteContentTag,
+    getAllTags,
     createMarketingContent,
     deleteMarketingContent,
     getContentByTag,

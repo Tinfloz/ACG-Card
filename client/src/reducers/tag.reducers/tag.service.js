@@ -3,7 +3,6 @@ import axios from "axios";
 const API_URL = "http://localhost:5000/api/marketing/v1";
 
 const createNewTag = async (token, tagDetails) => {
-    console.log(tagDetails, "token");
     const config = {
         headers: {
             Authorization: `Bearer ${token}`
@@ -13,8 +12,30 @@ const createNewTag = async (token, tagDetails) => {
     return response.data.tag
 };
 
+const getAllTags = async (token) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    };
+    const response = await axios.get(API_URL + "/get/tags", config);
+    return response.data.tags;
+};
+
+const deleteTag = async (token, tagName) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    };
+    const response = await axios.delete(API_URL + `/delete/tag/${tagName}`, config);
+    return response.data.tagName
+}
+
 const tagService = {
-    createNewTag
+    createNewTag,
+    getAllTags,
+    deleteTag
 };
 
 export default tagService;

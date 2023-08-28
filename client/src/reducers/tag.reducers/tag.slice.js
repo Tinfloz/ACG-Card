@@ -20,6 +20,28 @@ export const createNewTag = createAsyncThunk("new/tag", async (tagDetails, thunk
     };
 });
 
+export const getAllTags = createAsyncThunk("get/tags", async (_, thunkAPI) => {
+    try {
+        const token = thunkAPI.getState().auth.user.token;
+        return await tagService.getAllTags(token);
+    } catch (error) {
+        const message = (error.response && error.response.data && error.response.data.message)
+            || error.message || error.toString();
+        return thunkAPI.rejectWithValue(message)
+    };
+});
+
+export const deleteTags = createAsyncThunk("delete/tag", async (tagName, thunkAPI) => {
+    try {
+        const token = thunkAPI.getState().auth.user.token;
+        return await tagService.deleteTag(token, tagName)
+    } catch (error) {
+        const message = (error.response && error.response.data && error.response.data.message)
+            || error.message || error.toString();
+        return thunkAPI.rejectWithValue(message)
+    }
+});
+
 const tagSlice = createSlice({
     name: "tag",
     initialState,
@@ -41,6 +63,32 @@ const tagSlice = createSlice({
                 state.tag = action.payload.tag
             })
             .addCase(createNewTag.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+            })
+            .addCase(getAllTags.pending, state => {
+                state.isLoading = true;
+            })
+            .addCase(getAllTags.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.tag = action.payload;
+
+            })
+            .addCase(getAllTags.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+            })
+            .addCase(deleteTags.pending, state => {
+                state.isLoading = true;
+            })
+            .addCase(deleteTags.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+            })
+            .addCase(deleteTags.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;
