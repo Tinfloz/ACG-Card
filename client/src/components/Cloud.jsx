@@ -1,5 +1,7 @@
 import React from 'react';
-import { Box, Text, Grid, useBreakpointValue } from '@chakra-ui/react';
+import {
+    Box, Text, Grid, useBreakpointValue, Modal,
+} from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
 const WordBox = ({ words }) => {
@@ -7,7 +9,6 @@ const WordBox = ({ words }) => {
     const navigate = useNavigate();
 
     const buttonFontSize = useBreakpointValue({ base: 'sm', md: 'md' });
-
 
     return (
         <Box

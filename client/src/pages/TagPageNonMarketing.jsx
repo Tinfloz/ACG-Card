@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Box, Grid, Flex, HStack, Select, VStack, useBreakpointValue } from '@chakra-ui/react';
 import { useSelector, useDispatch } from "react-redux"
-import { getAllTags } from '../reducers/tag.reducers/tag.slice';
+import { getAllTags, resetTags } from '../reducers/tag.reducers/tag.slice';
 import { RingLoader } from 'react-spinners';
 import { subscribeUserTags, unsubscribeUserTags } from "../reducers/auth.reducers/auth.slice"
 
@@ -19,7 +19,6 @@ const TagPageNonMarketing = () => {
 
     const displayUnSubscribedtags = () => {
         const itrArray = user?.subscribedTags?.map(el => el?._id?.toString());
-        console.log(itrArray);
         const newTagArray = tags.filter(el => {
             if (!itrArray.includes(el._id)) {
                 return el
@@ -49,6 +48,10 @@ const TagPageNonMarketing = () => {
         (async () => {
             await dispatch(getAllTags());
         })()
+    }, [])
+
+    useEffect(() => {
+        return () => resetTags()
     }, [])
 
     return (

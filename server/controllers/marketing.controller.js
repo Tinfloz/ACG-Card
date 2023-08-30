@@ -84,6 +84,7 @@ const createMarketingContent = async (req, res) => {
             success: true
         });
     } catch (error) {
+        console.error(error);
         res.status(400).json({
             success: false,
             error: error.errors?.[0]?.message || error
