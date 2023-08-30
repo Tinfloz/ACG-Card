@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Flex, Box, Text, VStack, Input, Button, useBreakpointValue } from "@chakra-ui/react";
+import { Flex, Box, Text, VStack, Input, Button, useBreakpointValue, Select } from "@chakra-ui/react";
 import { resetAuthHelpers, login, register } from '../reducers/auth.reducers/auth.slice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 
 const UserCreds = ({ first }) => {
     const boxWidth = useBreakpointValue({ base: '82%', sm: '80%', md: '50%' });
 
     const dispatch = useDispatch();
 
+    const navigate = useNavigate();
+
+    const user = useSelector(state => state.auth.user);
+    console.log(user);
+
     const [creds, setCreds] = useState({
         email: "",
-        password: ""
+        password: "",
     });
 
     const handleChange = (e) => {
@@ -22,7 +28,8 @@ const UserCreds = ({ first }) => {
 
     const handleClick = async () => {
         first ? await dispatch(register(creds)) : await dispatch(login(creds));
-        setCreds(prevState => ({ ...prevState, email: "", password: "" }))
+        navigate("/dashboard");
+        setCreds(prevState => ({ ...prevState, email: "", password: "" }));
     }
 
     return (

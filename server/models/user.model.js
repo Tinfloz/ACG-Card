@@ -20,6 +20,9 @@ const userSchema = new mongoose.Schema({
     resetTokenExpires: {
         type: String
     },
+    role: {
+        type: String
+    },
     subscribedTags: [
         {
             type: mongoose.Types.ObjectId,
@@ -29,7 +32,7 @@ const userSchema = new mongoose.Schema({
 }, { timestamps: true })
 
 // hash password
-userSchema.pre("save", async function () {
+userSchema.pre("save", async function (next) {
     if (!this.isModified("password")) {
         return next()
     };

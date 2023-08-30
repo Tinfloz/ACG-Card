@@ -4,17 +4,19 @@ import Content from "../models/content.model.js";
 
 const subscribeToTags = async (req, res) => {
     try {
-        const { tagName } = req.params;
+        const { tagName } = req.body;
+        console.log(tagName)
         if (!tagName) {
             throw "no params";
         };
         const user = await User.findById(req.user._id);
         const tag = await Tag.findOne({ tag: tagName });
+        console.log(tag)
         user.subscribedTags.push(tag._id);
         await user.save();
         res.status(200).json({
             success: true,
-            tag: tagName
+            tag
         });
     } catch (error) {
         res.status(400).json({
@@ -26,17 +28,17 @@ const subscribeToTags = async (req, res) => {
 
 const unsubscribeTags = async (req, res) => {
     try {
-        const { tagName } = req.params;
+        const { tagName } = req.body;
         if (!tagName) {
             throw "no params";
         };
-        const user = await User.findById(req.user._id);
-        const tag = await Tag.findOne({ tagName });
-        user.subscribedTags = user.subscribedTags.filter(id => id !== tag._id.toString());
+        const user = await User.findById(req.user._id).populate("subscribedTags");
+        const tag = await Tag.findOne({ tag: tagName });
+        user.subscribedTags = user.subscribedTags.filter(el => el._id.toString() !== tag._id.toString());
         await user.save()
         res.status(200).json({
             success: true,
-            tag: tagName
+            tag: user.subscribedTags
         });
     } catch (error) {
         res.status(400).json({
@@ -86,9 +88,11 @@ const getEventsByTagAndUsers = async (req, res) => {
     };
 };
 
+
+
 export {
     subscribeToTags,
     unsubscribeTags,
     getContentByTagsAndUsers,
-    getEventsByTagAndUsers
+    getEventsByTagAndUsers,
 }

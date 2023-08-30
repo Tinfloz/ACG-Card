@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Flex, useBreakpointValue, Text, Button } from "@chakra-ui/react"
+import { useDispatch } from 'react-redux';
+import { deleteTags } from '../reducers/tag.reducers/tag.slice';
 
 const CreateContentOrDeleteTag = () => {
 
@@ -8,6 +10,12 @@ const CreateContentOrDeleteTag = () => {
     const boxWidth = useBreakpointValue({ base: '82%', sm: '80%', md: '50%' });
     const size = useBreakpointValue({ base: "xl", sm: "3xl" })
     const buttonSize = useBreakpointValue({ base: 'sm', md: 'md', lg: 'lg' });
+
+    const dispatch = useDispatch();
+
+    const handleDeleteClick = async () => {
+        await dispatch(deleteTags(tagName))
+    };
 
     return (
         <>
@@ -47,7 +55,7 @@ const CreateContentOrDeleteTag = () => {
                             <Button
                                 size={buttonSize}
                                 fontSize="sm"
-
+                                onClick={async () => await handleDeleteClick()}
                             >
                                 Delete Tag
                             </Button>

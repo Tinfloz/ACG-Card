@@ -41,10 +41,22 @@ const NavBar = ({ user }) => {
                             </Box>
                         ) : ( // Display menu contents on large screens
                             <HStack spacing="2.5vh">
-                                <Text as="button">My tags</Text>
-                                <Text as="button">Content</Text>
-                                <Text as="button">Events</Text>
-                                <Text as="button">Logout</Text>
+
+                                {
+                                    user?.role === "Marketing" ? (
+                                        <>
+                                            <Text as="button">My tags</Text>
+                                            <Text as="button">Content</Text>
+                                            <Text as="button">Events</Text>
+                                            <Text as="button">Logout</Text>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Text as="button">My Page</Text>
+                                            <Text as="button">My Tags</Text>
+                                        </>
+                                    )
+                                }
                             </HStack>
                         )}
                         <Spacer />
@@ -60,10 +72,21 @@ const NavBar = ({ user }) => {
                                 <DrawerHeader>Menu</DrawerHeader>
                                 <DrawerBody>
                                     <VStack>
-                                        <Text as="button">My tags</Text>
-                                        <Text as="button">Content</Text>
-                                        <Text as="button">Events</Text>
-                                        <Text as="button">Logout</Text>
+                                        {
+                                            user?.role === "Marketing" ? (
+                                                <>
+                                                    <Text as="button">My tags</Text>
+                                                    <Text as="button">Content</Text>
+                                                    <Text as="button">Events</Text>
+                                                    <Text as="button">Logout</Text>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <Text as="button">My Page</Text>
+                                                    <Text as="button">My Tags</Text>
+                                                </>
+                                            )
+                                        }
                                     </VStack>
                                 </DrawerBody>
                             </DrawerContent>

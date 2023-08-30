@@ -8,7 +8,6 @@ export const auth = async (req, res, next) => {
         };
         // extract bearer token from header
         const token = req.headers.authorization.split(" ")[1];
-        console.log(token, "in midd")
         if (!token) {
             throw "no token";
         };
@@ -18,6 +17,20 @@ export const auth = async (req, res, next) => {
             throw "user not found";
         };
         return next();
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            error: error.errors?.[0]?.message || error
+        });
+    };
+};
+
+export const isMarketing = async (req, res, next) => {
+    try {
+        if (req.user.role === "Marketing") {
+            return next();
+        };
+        throw "not authorised"
     } catch (error) {
         res.status(400).json({
             success: false,

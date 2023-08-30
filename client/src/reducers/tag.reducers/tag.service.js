@@ -30,12 +30,14 @@ const deleteTag = async (token, tagName) => {
     };
     const response = await axios.delete(API_URL + `/delete/tag/${tagName}`, config);
     return response.data.tagName
-}
+};
+
+
 
 const tagService = {
     createNewTag,
     getAllTags,
-    deleteTag
+    deleteTag,
 };
 
 export default tagService;

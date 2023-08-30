@@ -25,6 +25,7 @@ const signUp = async (req, res) => {
             user: { ...user._doc, token }
         });
     } catch (error) {
+        console.error(error)
         res.status(500).json({
             success: false,
             error: error.errors?.[0]?.message || error
@@ -38,7 +39,7 @@ const signIn = async (req, res) => {
         if (!email || !password) {
             throw "fields empty";
         };
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email }).populate("subscribedTags");
         if (!user) {
             throw "user not found"
         };
@@ -59,6 +60,23 @@ const signIn = async (req, res) => {
     };
 };
 
+const setRole = async (req, res) => {
+    try {
+        const user = await User.findByIdAndUpdate(req.user._id, req.body, { new: true });
+        console.log(user);
+        res.status(200).json({
+            success: true,
+            user
+        });
+    } catch (error) {
+        console.error(error)
+        res.status(400).json({
+            success: false,
+            error: error.errors?.[0]?.message || error
+        });
+    };
+};
+
 export {
-    signUp, signIn
+    signUp, signIn, setRole
 }

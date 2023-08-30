@@ -17,9 +17,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import SignIn from './pages/SignIn';
 import CreateTag from './pages/CreateTag';
-// import WordCloud from './components/WordCloud';
 import GetAllTags from './pages/GetAllTags';
 import CreateContentOrDeleteTag from './pages/CreateContentOrDeleteTag';
+import Dashboard from './pages/Dashboard';
+import TagPageNonMarketing from './pages/TagPageNonMarketing';
+import Test from './components/Test';
 
 function App() {
 
@@ -37,6 +39,9 @@ function App() {
             <Route path="/create/tag" element={<CreateTag />} />
             <Route path="/get/tags" element={<GetAllTags />} />
             <Route path="/tag/:tagName" element={<CreateContentOrDeleteTag />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dept/tag" element={<TagPageNonMarketing />} />
+            <Route path="/test" element={<Test />} />
           </Routes>
         </Router>
       </Box>

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Flex, Text, useBreakpointValue, InputGroup, InputLeftAddon, Input, HStack, Button } from "@chakra-ui/react";
+import { Box, Flex, Select, Text, useBreakpointValue, VStack, InputGroup, InputLeftAddon, Input, HStack, Button } from "@chakra-ui/react";
 import { useDispatch } from 'react-redux';
 import { createNewTag, resetTagHelpers, resetTags } from '../reducers/tag.reducers/tag.slice';
+import { countryList } from '../helpers/countries';
 
 const CreateTag = () => {
 
@@ -12,16 +13,23 @@ const CreateTag = () => {
 
     const dispatch = useDispatch();
     const [tagDetails, setTagDetails] = useState({
-        tagName: ""
+        tagName: "",
     });
 
+    const [location, setLocation] = useState("")
+
     const handleClick = async () => {
-        await dispatch(createNewTag(tagDetails));
+        const tagInfo = { ...tagDetails, location }
+        await dispatch(createNewTag(tagInfo));
     }
 
     useEffect(() => {
         return () => dispatch(resetTags())
     }, [])
+
+    const handleChange = (e) => {
+        setLocation(prevState => e.target.value)
+    };
 
     return (
         <>
@@ -45,19 +53,35 @@ const CreateTag = () => {
                     justify="center"
                     alignItems="center"
                 >
-                    <HStack spacing={hStackSpacing} justifyContent="center">
-                        <InputGroup w={inputGroupWidth}>
-                            <InputLeftAddon children='#' />
-                            <Input placeholder='Enter tag' bg="white" name="tagName" value={tagDetails.tagName} onChange={(e) => setTagDetails(prevState => ({
-                                ...prevState, tagName: e.target.value
-                            }))} />
-                        </InputGroup>
+                    <VStack>
+                        <HStack spacing={hStackSpacing} justifyContent="center">
+                            <InputGroup w={inputGroupWidth}>
+                                <InputLeftAddon children='#' />
+                                <Input placeholder='Enter tag' bg="white" name="tagName" value={tagDetails.tagName} onChange={(e) => setTagDetails(prevState => ({
+                                    ...prevState, tagName: e.target.value
+                                }))} />
+                            </InputGroup>
+                        </HStack>
+                        <Select
+                            placeholder="Select a country"
+                            size="md"
+                            bg="white"
+                            w={inputGroupWidth}
+                            maxH="200px"
+                            onChange={handleChange}
+                        >
+                            {
+                                countryList.map(el => (
+                                    <option value={el}>{el}</option>
+                                ))
+                            }
+                        </Select>
                         <Button
                             onClick={handleClick}
                         >
                             Submit
                         </Button>
-                    </HStack>
+                    </VStack>
                 </Flex>
             </Box>
         </>

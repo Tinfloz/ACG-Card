@@ -39,8 +39,10 @@ export const deleteTags = createAsyncThunk("delete/tag", async (tagName, thunkAP
         const message = (error.response && error.response.data && error.response.data.message)
             || error.message || error.toString();
         return thunkAPI.rejectWithValue(message)
-    }
+    };
 });
+
+
 
 const tagSlice = createSlice({
     name: "tag",
@@ -93,6 +95,7 @@ const tagSlice = createSlice({
                 state.isError = true;
                 state.message = action.payload;
             })
+
     }
 });
 

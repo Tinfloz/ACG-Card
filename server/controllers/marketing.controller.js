@@ -4,13 +4,13 @@ import Event from "../models/event.model.js";
 
 const createContentTag = async (req, res) => {
     try {
-        const { tagName } = req.body;
-        console.log(tagName)
-        if (!tagName) {
+        const { tagName, location } = req.body;
+        if (!tagName || !location) {
             throw "tag name not found"
         };
         const newTag = await Tag.create({
-            tag: tagName
+            tag: tagName,
+            location
         });
         if (!newTag) {
             throw "could not be created"
@@ -30,11 +30,12 @@ const createContentTag = async (req, res) => {
 const deleteContentTag = async (req, res) => {
     try {
         const { tagName } = req.params;
+        console.log(tagName, "in controller")
         if (!tagName) {
             throw "no tag name"
         };
-        const tag = await Tag.findOne({ tagName });
-        await tag.remove();
+        const tag = await Tag.findOne({ tag: tagName });
+        await tag.deleteOne();
         res.status(200).json({
             success: true,
             tag: tagName
@@ -97,7 +98,7 @@ const deleteMarketingContent = async (req, res) => {
             throw "no id"
         };
         const content = await Content.findById(id);
-        await content.remove();
+        await content.deleteOne();
         res.status(200).json({
             success: true,
             contentId: id
@@ -187,7 +188,7 @@ const deleteEvent = async (req, res) => {
             throw "no params"
         };
         const event = await Event.findById(id);
-        await event.remove();
+        await event.deleteOne();
         res.status(200).json({
             success: true,
             id
