@@ -22,6 +22,7 @@ import CreateContentOrDeleteTag from './pages/CreateContentOrDeleteTag';
 import Dashboard from './pages/Dashboard';
 import TagPageNonMarketing from './pages/TagPageNonMarketing';
 import Test from './components/Test';
+import GetContentByTag from './pages/GetContentByTag';
 
 function App() {
 
@@ -42,6 +43,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/dept/tag" element={<TagPageNonMarketing />} />
             <Route path="/test" element={<Test />} />
+            <Route path="/get/content/:tag" element={<GetContentByTag />} />
           </Routes>
         </Router>
       </Box>

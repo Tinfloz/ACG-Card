@@ -115,16 +115,18 @@ const deleteMarketingContent = async (req, res) => {
 const getContentByTag = async (req, res) => {
     try {
         const { tag } = req.params;
+        console.log(tag)
         if (!tag) {
             throw "no tag found"
         };
-        const selectedTag = await Tag.findOne({ tag })
-        let contentArray = (await Content.find({ tag: selectedTag._id })).map(el => el.contentStr);
+        const selectedTag = await Tag.findOne({ tag });
+        let contentArray = await Content.find({ tag: selectedTag._id });
         res.status(200).json({
             success: true,
-            conetent: contentArray
+            content: contentArray
         });
     } catch (error) {
+        console.error(error);
         res.status(400).json({
             success: false,
             error: error.errors?.[0]?.message || error
