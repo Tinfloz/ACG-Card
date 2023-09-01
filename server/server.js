@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/auth.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import marketingRoutes from "./routes/marketing.routes.js"
+import cardRoutes from "./routes/card.routes.js"
 import { errorHandler } from "./middlewares/error.middlware.js";
 
 dotenv.config();
@@ -36,6 +37,7 @@ app.get("/", (req, res) => {
 app.use("/api/auth/v1", authRoutes);
 app.use("/api/user/v1", userRoutes);
 app.use("/api/marketing/v1", marketingRoutes);
+app.use("/api/card/v1", cardRoutes);
 
 app.use(errorHandler);
 

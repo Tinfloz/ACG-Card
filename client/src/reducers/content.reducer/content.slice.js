@@ -43,6 +43,16 @@ export const deleteMarketingCollaterals = createAsyncThunk("content/delete", asy
     };
 });
 
+export const getAllAssociateContent = createAsyncThunk("content/associate", async (_, thunkAPI) => {
+    try {
+        return await contentService.getAllAssociateContentByTag()
+    } catch (error) {
+        const message = (error.response && error.response.data && error.response.data.message)
+            || error.message || error.toString();
+        return thunkAPI.rejectWithValue(message);
+    };
+});
+
 const contentSlice = createSlice({
     name: "content",
     initialState,
@@ -92,6 +102,18 @@ const contentSlice = createSlice({
             .addCase(deleteMarketingCollaterals.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
+                state.message = action.payload;
+            })
+            .addCase(getAllAssociateContent.pending, state => {
+                state.isLoading = true;
+            })
+            .addCase(getAllAssociateContent.fulfilled, state => {
+                state.isLoading = false;
+                state.isSuccess = true;
+            })
+            .addCase(getAllAssociateContent.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = false;
                 state.message = action.payload;
             })
     }

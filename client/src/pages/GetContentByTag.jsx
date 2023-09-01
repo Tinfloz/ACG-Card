@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getMarketingCollateralsByTag } from '../reducers/content.reducer/content.slice';
+import { getMarketingCollateralsByTag, resetContent } from '../reducers/content.reducer/content.slice';
 import { Flex, VStack } from "@chakra-ui/react";
 import { RingLoader } from 'react-spinners';
 import ContentBox from '../components/ContentBox';
@@ -17,6 +17,10 @@ const GetContentByTag = () => {
         (async () => {
             await dispatch(getMarketingCollateralsByTag(tag));
         })()
+    }, [])
+
+    useEffect(() => {
+        return () => dispatch(resetContent());
     }, [])
 
     return (

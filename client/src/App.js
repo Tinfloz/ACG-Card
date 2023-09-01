@@ -23,6 +23,7 @@ import Dashboard from './pages/Dashboard';
 import TagPageNonMarketing from './pages/TagPageNonMarketing';
 import Test from './components/Test';
 import GetContentByTag from './pages/GetContentByTag';
+import ScannedCard from './pages/ScannedCard';
 
 function App() {
 
@@ -44,6 +45,7 @@ function App() {
             <Route path="/dept/tag" element={<TagPageNonMarketing />} />
             <Route path="/test" element={<Test />} />
             <Route path="/get/content/:tag" element={<GetContentByTag />} />
+            <Route path="/scanned/card/:associate" element={<ScannedCard />} />
           </Routes>
         </Router>
       </Box>
