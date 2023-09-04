@@ -8,8 +8,11 @@ const contentSchema = new mongoose.Schema({
     tag: {
         type: mongoose.Types.ObjectId,
         ref: "Tags"
+    },
+    caption: {
+        type: String,
+        required: true
     }
-
 }, { timestamps: true });
 
 

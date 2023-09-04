@@ -4,62 +4,6 @@ import Tag from "../models/tags.model.js";
 import Event from "../models/event.model.js";
 import ScannedUser from "../models/scanned.user.model.js";
 
-// const getContentByTagAndLocation = async (req, res) => {
-//     try {
-//         const { associate } = req.params;
-//         const { country, IPv4, lat, lng, fingerprint } = req.body;
-//         if (!associate || !country || !IPv4 || !lat || !lng || !fingerprint) {
-//             throw "info missing";
-//         };
-//         const acgAssociate = await User.findOne({ userName: associate }).populate("subscribedTags");
-//         if (!req.exists) {
-//             const associates = [associate];
-//             const location = {
-//                 type: "Point",
-//                 coordinates: [lng, lat]
-//             };
-//             const newScannedUser = await ScannedUser.create({
-//                 ...req.body, associates, location
-//             });
-//             console.log(newScannedUser);
-//         } else {
-//             const scannedUser = await ScannedUser.findOne({ fingerprint });
-//             scannedUser.associates.push(acgAssociate._id);
-//             await scannedUser.save();
-//         };
-// const tagsOfInterest = acgAssociate.subscribedTags.map(el => {
-//     if (el.location === country) {
-//         return el._id.toString()
-//     }
-// });
-// const sendContent = (await Content.find()).filter(el => {
-//     if (tagsOfInterest.includes(el.tag.toString())) {
-//         return el
-//     };
-// });
-// const otherTags = acgAssociate.subscribedTags.map(el => {
-//     if (el.location !== country) {
-//         return el._id.toString()
-//     };
-// });
-//         const sendOtherContent = (await Content.find()).filter(el => {
-//             if (otherTags.includes(el.tag.toString())) {
-//                 return el
-//             };
-//         });
-//         const finalContentArray = [...sendContent, ...sendOtherContent];
-//         res.status(200).json({
-//             success: true,
-//             finalContentArray
-//         });
-//     } catch (error) {
-//         res.status(400).json({
-//             success: false,
-//             error: error.errors?.[0]?.message || error
-//         });
-//     };
-// };
-
 const getContentByTagAndLocation = async (req, res) => {
     try {
         const { associate } = req.params;
@@ -67,7 +11,7 @@ const getContentByTagAndLocation = async (req, res) => {
         if (!associate || !country || !IPv4 || !lat || !lng || !fingerprint) {
             throw new Error("Required information is missing.");
         };
-        const acgAssociate = await User.findOne({ userName: associate }).populate("subscribedTags");
+        const acgAssociate = await User.findOne({ searchKey: associate }).populate("subscribedTags");
         if (!acgAssociate) {
             throw "no associate found"
         };
@@ -103,7 +47,12 @@ const getContentByTagAndLocation = async (req, res) => {
             success: true,
             content: {
                 finalContentArray,
-                finalEventArray
+                finalEventArray,
+                associate: {
+                    name: acgAssociate.userName,
+                    email: acgAssociate.email,
+                    image: acgAssociate.userPhotoStr
+                }
             }
         });
     } catch (error) {

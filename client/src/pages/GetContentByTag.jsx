@@ -12,6 +12,7 @@ const GetContentByTag = () => {
     const dispatch = useDispatch();
 
     const contentArray = useSelector(state => state.content.content);
+    console.log(contentArray)
 
     useEffect(() => {
         (async () => {
@@ -39,12 +40,17 @@ const GetContentByTag = () => {
                         <VStack
                             w="100%"
                             spacing={3}
-                            align="stretch"
+                            align="center"
                             overflowY="scroll"
                             pb="15vh"
                             pt="5vh"
                         >
-                            <ContentBox images={contentArray} />
+                            {/* <ContentBox images={contentArray} /> */}
+                            {
+                                contentArray?.map(el => (
+                                    <ContentBox image={el} key={el._id} />
+                                ))
+                            }
                         </VStack>
                     </>
                 )}

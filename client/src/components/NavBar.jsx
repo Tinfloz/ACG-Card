@@ -15,18 +15,22 @@ import {
     useBreakpointValue,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from '@chakra-ui/icons';
+import { useParams } from 'react-router-dom';
 
 const NavBar = ({ user }) => {
 
     const { isOpen, onOpen, onClose } = useDisclosure();
     const btnRef = useRef();
+    const { associate } = useParams();
 
     // Check if the screen size is small (base) to determine whether to show the drawer
     const isSmallScreen = useBreakpointValue({ base: true, md: false });
 
     return (
         <>
-            {user ? (
+            {!user || window.location.pathname.startsWith("/scanned/card") ? (
+                null
+            ) : (
                 <>
                     <Flex align="center" bg="teal.500" p={4} h="auto">
                         {isSmallScreen ? ( // Display hamburger icon on small screens
@@ -93,8 +97,6 @@ const NavBar = ({ user }) => {
                         </Drawer>
                     </Flex>
                 </>
-            ) : (
-                null
             )}
         </>
     )

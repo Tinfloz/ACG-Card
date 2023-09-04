@@ -9,7 +9,8 @@ import {
     ModalFooter,
     ModalBody,
     ModalCloseButton,
-    useDisclosure
+    useDisclosure,
+    VStack
 } from "@chakra-ui/react"
 import { useDispatch } from 'react-redux';
 import { deleteTags } from '../reducers/tag.reducers/tag.slice';
@@ -18,6 +19,7 @@ import { createMarketingCollateral } from "../reducers/content.reducer/content.s
 const CreateContentOrDeleteTag = () => {
 
     const [selectedFile, setSelectedFile] = useState(null);
+    const [caption, setCaption] = useState("")
 
     const { tagName } = useParams();
 
@@ -33,7 +35,10 @@ const CreateContentOrDeleteTag = () => {
             reader.onload = async (e) => {
                 const base64String = e.target.result;
                 const content = {
-                    contentStr: base64String,
+                    contentDetails: {
+                        contentStr: base64String,
+                        caption
+                    },
                     tag: tagName
                 }
                 await dispatch(createMarketingCollateral(content))
@@ -120,7 +125,12 @@ const CreateContentOrDeleteTag = () => {
                                     <ModalHeader>Upload Image</ModalHeader>
                                     <ModalCloseButton />
                                     <ModalBody>
-                                        <Input type="file" onChange={handleFileChange} accept="image/*" />
+                                        <VStack
+                                            spacing={4}
+                                        >
+                                            <Input type="file" onChange={handleFileChange} accept="image/*" />
+                                            <Input placeholder="Enter caption" value={caption} onChange={(e) => setCaption(e.target.value)} />
+                                        </VStack>
                                     </ModalBody>
                                     <ModalFooter>
                                         <Button colorScheme="blue" onClick={handleUpload} isDisabled={!selectedFile}>

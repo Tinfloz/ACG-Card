@@ -14,8 +14,10 @@ const signUp = async (req, res) => {
         if (email.split("@")[1] !== "acg-world.com") {
             throw `${email.split("@")[1]} not allowed`;
         };
-        const userName = email.split(" ")[0].split(".")[0]
-        const user = await User.create({ ...req.body, userName });
+        const name = email.split("@")[0].split(".");
+        const userName = `${name[0][0].toUpperCase() + name[0].slice(1)} ${name[1][0].toUpperCase() + name[1].slice(1)}`
+        const searchKey = email.split("@")[0].split(".")[0];
+        const user = await User.create({ ...req.body, userName, searchKey });
         if (!user) {
             throw "user could not be created!"
         };
@@ -63,7 +65,6 @@ const signIn = async (req, res) => {
 const setRole = async (req, res) => {
     try {
         const user = await User.findByIdAndUpdate(req.user._id, req.body, { new: true });
-        console.log(user);
         res.status(200).json({
             success: true,
             user

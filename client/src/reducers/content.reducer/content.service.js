@@ -1,16 +1,16 @@
 import axios from "axios";
 
 const API_URL = "http://localhost:5000/api/marketing/v1";
-const API_MARK = "http://localhost:5000/api/user/v1"
+// const API_MARK = "http://localhost:5000/api/user/v1"
 
 const createContent = async (token, content) => {
-    const { tag, contentStr } = content;
+    const { tag, contentDetails } = content;
     const config = {
         headers: {
             Authorization: `Bearer ${token}`
         }
     };
-    const response = await axios.post(API_URL + `/create/content/${tag}`, { contentStr }, config);
+    const response = await axios.post(API_URL + `/create/content/${tag}`, contentDetails, config);
     return response.data;
 };
 
@@ -34,16 +34,12 @@ const deleteContent = async (token, id) => {
     return response.data.contentId;
 };
 
-// const getAllAssociateContentByTag = async () => {
-//     const response = await axios.get(API_MARK + "/get/content");
-//     return response.data;
-// }
+
 
 const contentService = {
     createContent,
     getAllContentByTag,
-    deleteContent,
-    // getAllAssociateContentByTag
+    deleteContent
 };
 
 export default contentService;

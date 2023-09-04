@@ -30,7 +30,6 @@ const createContentTag = async (req, res) => {
 const deleteContentTag = async (req, res) => {
     try {
         const { tagName } = req.params;
-        console.log(tagName, "in controller")
         if (!tagName) {
             throw "no tag name"
         };
@@ -65,7 +64,7 @@ const getAllTags = async (req, res) => {
 
 const createMarketingContent = async (req, res) => {
     try {
-        const { contentStr } = req.body;
+        const { contentStr, caption } = req.body;
         const { tag } = req.params;
         if (!contentStr || !tag) {
             throw "no tag / content string"
@@ -75,7 +74,7 @@ const createMarketingContent = async (req, res) => {
             throw "no such tag found"
         }
         const newContent = await Content.create({
-            contentStr, tag: selectedTag._id
+            contentStr, tag: selectedTag._id, caption
         });
         if (!newContent) {
             throw "content could not be created"
@@ -84,7 +83,6 @@ const createMarketingContent = async (req, res) => {
             success: true
         });
     } catch (error) {
-        console.error(error);
         res.status(400).json({
             success: false,
             error: error.errors?.[0]?.message || error

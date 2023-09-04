@@ -14,6 +14,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    userPhotoStr: {
+        type: String,
+    },
+    searchKey: {
+        type: String,
+        required: true
+    },
     resetToken: {
         type: String
     },
