@@ -21,6 +21,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    phone: {
+        type: String,
+    },
+    linkedIn: {
+        type: String,
+    },
     resetToken: {
         type: String
     },
@@ -28,6 +34,9 @@ const userSchema = new mongoose.Schema({
         type: String
     },
     role: {
+        type: String
+    },
+    code: {
         type: String
     },
     subscribedTags: [

@@ -21,7 +21,6 @@ import GetAllTags from './pages/GetAllTags';
 import CreateContentOrDeleteTag from './pages/CreateContentOrDeleteTag';
 import Dashboard from './pages/Dashboard';
 import TagPageNonMarketing from './pages/TagPageNonMarketing';
-import Test from './components/Test';
 import GetContentByTag from './pages/GetContentByTag';
 import ScannedCard from './pages/ScannedCard';
 
@@ -43,7 +42,6 @@ function App() {
             <Route path="/tag/:tagName" element={<CreateContentOrDeleteTag />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/dept/tag" element={<TagPageNonMarketing />} />
-            <Route path="/test" element={<Test />} />
             <Route path="/get/content/:tag" element={<GetContentByTag />} />
             <Route path="/scanned/card/:associate" element={<ScannedCard />} />
           </Routes>

@@ -51,7 +51,10 @@ const getContentByTagAndLocation = async (req, res) => {
                 associate: {
                     name: acgAssociate.userName,
                     email: acgAssociate.email,
-                    image: acgAssociate.userPhotoStr
+                    image: acgAssociate.userPhotoStr,
+                    linkedIn: acgAssociate.linkedIn,
+                    code: acgAssociate.code,
+                    phone: acgAssociate.phone
                 }
             }
         });

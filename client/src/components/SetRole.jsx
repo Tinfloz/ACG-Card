@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { departments } from '../helpers/departments';
-import { Box, Button, Select, VStack, useBreakpointValue, Input } from "@chakra-ui/react";
+import { Box, Button, Select, VStack, useBreakpointValue, Input, HStack, InputLeftAddon, InputGroup } from "@chakra-ui/react";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setLoggedInUserRole } from '../reducers/auth.reducers/auth.slice';
@@ -9,9 +9,13 @@ const SetRole = () => {
 
     const boxWidth = useBreakpointValue({ base: '82%', sm: '80%', md: '50%' });
     const inputGroupWidth = useBreakpointValue({ base: '80%', md: '100%' });
+    // const hStackSpacing = useBreakpointValue({ base: "5", md: null })
 
     const [role, setRole] = useState({
-        role: ""
+        role: "",
+        phone: "",
+        linkedIn: "",
+        code: ""
     });
 
     const [selectedFile, setSelectedFile] = useState(null);
@@ -27,7 +31,7 @@ const SetRole = () => {
                 const base64String = e.target.result;
                 const userDetails = {
                     userPhotoStr: base64String,
-                    role: role.role
+                    ...role
                 };
                 await dispatch(setLoggedInUserRole(userDetails));
             };
@@ -38,7 +42,14 @@ const SetRole = () => {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         setSelectedFile(file);
-    }
+    };
+
+    const handleChange = (e) => {
+        setRole(prevState => ({
+            ...prevState,
+            [e.target.name]: e.target.value
+        }));
+    };
 
     return (
         <>
@@ -55,6 +66,16 @@ const SetRole = () => {
             >
                 <VStack>
                     <Input type="file" w={inputGroupWidth} bg="white" onChange={handleFileChange} accept="image/*" />
+                    <Input placeholder='Enter LinkedIn' name="linkedIn" value={role.linkedIn} onChange={handleChange} bg="white"
+                        w={inputGroupWidth}
+                    />
+                    <HStack w={inputGroupWidth}>
+                        <InputGroup w="60%">
+                            <InputLeftAddon children="+" bg="white" />
+                            <Input bg="white" name="code" value={role.code} onChange={handleChange} p={2} />
+                        </InputGroup>
+                        <Input placeholder="Enter phone" bg="white" value={role.phone} name="phone" onChange={handleChange} />
+                    </HStack>
                     <Select
                         placeholder="Select department"
                         size="md"
