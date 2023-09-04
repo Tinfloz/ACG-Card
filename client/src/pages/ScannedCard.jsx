@@ -1,5 +1,12 @@
-import React, { useEffect } from 'react';
-import { Box, VStack, Flex, AspectRatio, Image, HStack, Icon } from "@chakra-ui/react";
+import React, { useEffect, useRef } from 'react';
+import {
+    Box, VStack, Flex, useMediaQuery, Image, HStack, Icon, Drawer,
+    DrawerBody,
+    DrawerHeader,
+    DrawerOverlay,
+    DrawerContent,
+    DrawerCloseButton, useDisclosure, Heading, IconButton, DrawerFooter, Button
+} from "@chakra-ui/react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
 import { getAllCardContentScanned } from '../reducers/card.reducer/card.slice';
@@ -8,6 +15,8 @@ import CardContentBox from '../components/CardContentBox';
 import Acg from "../assets/Acg.svg";
 import { FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import { BiPhoneCall } from "react-icons/bi";
+import EventBox from '../components/EventBox';
+import { HamburgerIcon } from '@chakra-ui/icons';
 
 const ScannedCard = () => {
 
@@ -15,6 +24,10 @@ const ScannedCard = () => {
     const dispatch = useDispatch();
     const { associate } = useParams();
     const contentToDisplay = useSelector(state => state.card.content);
+
+    const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
+    const btnRef = useRef();
+    const { onOpen, isOpen, onClose } = useDisclosure();
 
     useEffect(() => {
         (async () => {
@@ -52,12 +65,52 @@ const ScannedCard = () => {
                             p={4}
                             boxShadow="lg"
                             alignItems={"center"}
-                            display={"flex"}
-                            justify="space-between"
+                            display="flex"
+                            justifyContent="space-between"
                         >
                             <Image
                                 src={Acg}
                             />
+                            {
+                                !isLargerThan768 &&
+                                <>
+                                    <IconButton
+                                        icon={<HamburgerIcon />}
+                                        variant="outline"
+                                        colorScheme="white"
+                                        ref={btnRef}
+                                        onClick={onOpen}
+                                    />
+                                    <Drawer
+                                        isOpen={isOpen}
+                                        placement='right'
+                                        onClose={onClose}
+                                        finalFocusRef={btnRef}
+                                    >
+                                        <DrawerOverlay />
+                                        <DrawerCloseButton />
+                                        <DrawerContent>
+                                            <DrawerHeader>Upcoming events</DrawerHeader>
+                                            <DrawerBody>
+                                                <VStack>
+                                                    {
+                                                        contentToDisplay?.finalEventArray?.map(el => (
+                                                            <EventBox event={el} />
+                                                        ))
+                                                    }
+                                                </VStack>
+                                            </DrawerBody>
+                                            <DrawerFooter>
+                                                <Button
+                                                    onClick={onClose}
+                                                >
+                                                    Close
+                                                </Button>
+                                            </DrawerFooter>
+                                        </DrawerContent>
+                                    </Drawer>
+                                </>
+                            }
                         </Box>
                         <Flex
                             minH="18vh"
@@ -138,18 +191,57 @@ const ScannedCard = () => {
                                 </Flex>
                             </Box>
                         </Flex>
-                        <VStack
-                            pt="5vh"
-                            pb="15vh"
-                            overflowY="scroll"
-                            spacing={5}
+                        <Flex
+                            overflow="hidden"
                         >
-                            {
-                                contentToDisplay?.finalContentArray?.map(el => (
-                                    <CardContentBox image={el} key={el._id} />
-                                ))
-                            }
-                        </VStack>
+                            {/* First Part */}
+                            <Box
+                                w={isLargerThan768 ? "70%" : "100%"}
+                                overflowY="scroll"
+                            >
+                                <VStack
+                                    pt="5vh"
+                                    pb="15vh"
+                                    spacing={5}
+                                    w="100%"
+                                >
+                                    {
+                                        contentToDisplay?.finalContentArray?.map(el => (
+                                            <CardContentBox image={el} key={el._id} />
+                                        ))
+                                    }
+                                </VStack>
+                            </Box>
+                            {/* Second Part */}
+                            {isLargerThan768 &&
+                                <Box
+                                    w="30%"
+                                    spacing={3}
+                                    overflowY="scroll"
+                                >
+                                    <Box
+                                        position="sticky"
+                                        top="0"
+                                        p={4}
+                                        bg="white"
+                                        boxShadow="base"
+                                    >
+                                        <Heading
+                                            size="md"
+                                            color="black"
+                                        >
+                                            Upcoming events
+                                        </Heading>
+                                    </Box>
+                                    <VStack w="100%" pb="15vh" pl={3} pr={3} pt={5}>
+                                        {
+                                            contentToDisplay?.finalEventArray?.map(el => (
+                                                <EventBox event={el} />
+                                            ))
+                                        }
+                                    </VStack>
+                                </Box>}
+                        </Flex>
                     </>
                 )
                 }
@@ -176,3 +268,6 @@ const ScannedCard = () => {
 }
 
 export default ScannedCard
+
+
+

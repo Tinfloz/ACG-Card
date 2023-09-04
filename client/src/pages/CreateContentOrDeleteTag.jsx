@@ -9,18 +9,24 @@ import {
     ModalFooter,
     ModalBody,
     ModalCloseButton,
-    useDisclosure,
-    VStack
+    useDisclosure, Select,
+    VStack, useMediaQuery
 } from "@chakra-ui/react"
 import { useDispatch } from 'react-redux';
 import { deleteTags } from '../reducers/tag.reducers/tag.slice';
-import { createMarketingCollateral } from "../reducers/content.reducer/content.slice"
+import { createMarketingCollateral } from "../reducers/content.reducer/content.slice";
+import Calendar from "react-calendar";
+import { countryList } from '../helpers/countries';
+import { createNewMarketingEvent } from '../reducers/event.reducers/event.slice';
 
 const CreateContentOrDeleteTag = () => {
 
     const [selectedFile, setSelectedFile] = useState(null);
-    const [caption, setCaption] = useState("")
-
+    const [caption, setCaption] = useState("");
+    const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
+    const [event, setEvent] = useState("");
+    const [date, setDate] = useState(new Date());
+    const [location, setLocation] = useState("");
     const { tagName } = useParams();
 
     const handleFileChange = (event) => {
@@ -46,10 +52,12 @@ const CreateContentOrDeleteTag = () => {
             };
 
             reader.readAsDataURL(selectedFile);
-        }
+        };
     };
 
-
+    const handleChange = (e) => {
+        setLocation(prevState => e.target.value)
+    };
 
     const boxWidth = useBreakpointValue({ base: '82%', sm: '80%', md: '50%' });
     const size = useBreakpointValue({ base: "xl", sm: "3xl" })
@@ -61,6 +69,21 @@ const CreateContentOrDeleteTag = () => {
 
     const handleDeleteClick = async () => {
         await dispatch(deleteTags(tagName))
+    };
+
+    const handleCreateEvent = async () => {
+        const dateString = date.toString().split(" ");
+        const finalDateString = dateString[0] + " " + dateString[1] + " " + dateString[2] + " " + dateString[3];
+        const eventDetails = {
+            eventName: event,
+            date: finalDateString,
+            location,
+            tag: tagName
+        };
+        await dispatch(createNewMarketingEvent(eventDetails));
+        onClose();
+        setEvent(prevState => "");
+        setLocation(prevState => "");
     };
 
     return (
@@ -96,28 +119,29 @@ const CreateContentOrDeleteTag = () => {
                             bg="red.100"
                             justify="center"
                             alignItems="center"
-                            w="50%"
+                            w="33.34%"
                         >
                             <Button
                                 size={buttonSize}
                                 fontSize="sm"
                                 onClick={async () => await handleDeleteClick()}
                             >
-                                Delete Tag
+                                {isLargerThan768 ? "Delete Tag" : "Delete"}
+
                             </Button>
                         </Flex>
                         <Flex
                             bg="green.100"
                             justify="center"
                             alignItems="center"
-                            w="50%"
+                            w="33.34%"
                         >
                             <Button
                                 size={buttonSize}
                                 fontSize="sm"
                                 onClick={onOpen}
                             >
-                                Create Content
+                                {isLargerThan768 ? "Create Content" : "Content"}
                             </Button>
                             <Modal isOpen={isOpen} onClose={onClose}>
                                 <ModalOverlay />
@@ -135,6 +159,52 @@ const CreateContentOrDeleteTag = () => {
                                     <ModalFooter>
                                         <Button colorScheme="blue" onClick={handleUpload} isDisabled={!selectedFile}>
                                             Upload
+                                        </Button>
+                                    </ModalFooter>
+                                </ModalContent>
+                            </Modal>
+                        </Flex>
+                        <Flex
+                            bg="blue.100"
+                            justify="center"
+                            alignItems="center"
+                            w="33.34%"
+                        >
+                            <Button
+                                size={buttonSize}
+                                fontSize="sm"
+                                onClick={onOpen}
+                            >
+                                {isLargerThan768 ? "Create Event" : "Event"}
+                            </Button>
+                            <Modal isOpen={isOpen} onClose={onClose}>
+                                <ModalOverlay />
+                                <ModalContent maxW={['90%', '80%', '60%']}>
+                                    <ModalHeader>Create Event</ModalHeader>
+                                    <ModalCloseButton />
+                                    <ModalBody>
+                                        <VStack
+                                            spacing={4}
+                                        >
+                                            <Input placeholder="Event name" value={event} onChange={(e) => setEvent(prevState => e.target.value)} />
+                                            <Select
+                                                placeholder="Select location"
+                                                onChange={handleChange}
+                                            >
+                                                {
+                                                    countryList.map(el => (
+                                                        <option value={el}>{el}</option>
+                                                    ))
+                                                }
+                                            </Select>
+                                            <Calendar
+                                                onChange={setDate} value={date}
+                                            />
+                                        </VStack>
+                                    </ModalBody>
+                                    <ModalFooter>
+                                        <Button colorScheme="blue" onClick={async () => await handleCreateEvent()}>
+                                            Create
                                         </Button>
                                     </ModalFooter>
                                 </ModalContent>
