@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_URL = "http://localhost:5000/api/marketing/v1";
-// const API_MARK = "http://localhost:5000/api/user/v1"
+const API_USER = "http://localhost:5000/api/user/v1";
 
 const createContent = async (token, content) => {
     const { tag, contentDetails } = content;
@@ -34,12 +34,34 @@ const deleteContent = async (token, id) => {
     return response.data.contentId;
 };
 
+const getAllContentUser = async (token) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    };
+    const response = await axios.get(API_USER + "/get/user/content", config);
+    return response.data.userContentArray;
+};
 
+const getAllEventUser = async (token) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    };
+    console.log(config);
+    const response = await axios.get(API_USER + "/get/user/event", config);
+
+    return response.data.userContentArray;
+}
 
 const contentService = {
     createContent,
     getAllContentByTag,
-    deleteContent
+    deleteContent,
+    getAllContentUser,
+    getAllEventUser
 };
 
 export default contentService;

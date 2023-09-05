@@ -35,22 +35,31 @@ function App() {
     return user ? element : <Navigate to="/signIn" />;
   };
 
+  const requireMarketingAuth = (element) => {
+    if (user) {
+      if (user?.role === "Marketing") {
+        return element
+      };
+      return <Navigate to="/signIn" />
+    };
+    return <Navigate to="/signIn" />
+  };
+
   return (
     <ChakraProvider theme={theme}>
       <Box overflow="hidden" flexDirection={"column"} display={"flex"} h="100vh">
         <NavBar user={user} />
-        {/* <UserCreds /> */}
         <Router>
           <Routes>
             <Route path="/signUp" element={<SignUp />} />
             <Route path="/signIn" element={<SignIn />} />
-            <Route path="/create/tag" element={requireAuth(<CreateTag />)} />
-            <Route path="/get/tags" element={requireAuth(<GetAllTags />)} />
-            <Route path="/tag/:tagName" element={requireAuth(<CreateContentOrDeleteTag />)} />
+            <Route path="/create/tag" element={requireMarketingAuth(<CreateTag />)} />
+            <Route path="/get/tags" element={requireMarketingAuth(<GetAllTags />)} />
+            <Route path="/tag/:tagName" element={requireMarketingAuth(<CreateContentOrDeleteTag />)} />
             <Route path="/dashboard" element={requireAuth(<Dashboard />)} />
             <Route path="/dept/tag" element={requireAuth(<TagPageNonMarketing />)} />
-            <Route path="/get/content/:tag" element={requireAuth(<GetContentByTag />)} />
-            <Route path="/get/event/:tag" element={requireAuth(<GetEventsByTag />)} />
+            <Route path="/get/content/:tag" element={requireMarketingAuth(<GetContentByTag />)} />
+            <Route path="/get/event/:tag" element={requireMarketingAuth(<GetEventsByTag />)} />
             <Route path="/scanned/card/:associate" element={<ScannedCard />} />
           </Routes>
         </Router>

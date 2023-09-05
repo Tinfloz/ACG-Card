@@ -22,7 +22,6 @@ export const createMarketingCollateral = createAsyncThunk("content/create", asyn
 
 export const getMarketingCollateralsByTag = createAsyncThunk("content/get", async (tag, thunkAPI) => {
     try {
-        console.log(tag)
         const token = thunkAPI.getState().auth.user.token;
         return await contentService.getAllContentByTag(token, tag);
     } catch (error) {
@@ -43,9 +42,11 @@ export const deleteMarketingCollaterals = createAsyncThunk("content/delete", asy
     };
 });
 
-export const getAllAssociateContent = createAsyncThunk("content/associate", async (_, thunkAPI) => {
+export const getAllLoggedInUserContent = createAsyncThunk("content/all", async (_, thunkAPI) => {
     try {
-        return await contentService.getAllAssociateContentByTag()
+        const token = thunkAPI.getState().auth.user.token;
+        console.log(token)
+        return await contentService.getAllContentUser(token);
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message)
             || error.message || error.toString();
@@ -104,16 +105,17 @@ const contentSlice = createSlice({
                 state.isError = true;
                 state.message = action.payload;
             })
-            .addCase(getAllAssociateContent.pending, state => {
+            .addCase(getAllLoggedInUserContent.pending, state => {
                 state.isLoading = true;
             })
-            .addCase(getAllAssociateContent.fulfilled, state => {
+            .addCase(getAllLoggedInUserContent.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
+                state.content = action.payload
             })
-            .addCase(getAllAssociateContent.rejected, (state, action) => {
+            .addCase(getAllLoggedInUserContent.rejected, (state, action) => {
                 state.isLoading = false;
-                state.isError = false;
+                state.isError = true;
                 state.message = action.payload;
             })
     }

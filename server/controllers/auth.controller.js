@@ -48,7 +48,7 @@ const signIn = async (req, res) => {
         if (!await user.matchPassword(password)) {
             throw "passwords don't match"
         };
-        const token = getToken(user);
+        const token = getToken(user._id);
         res.status(200).json({
             success: true,
             user: { ...user._doc, token }

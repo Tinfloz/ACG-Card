@@ -57,7 +57,6 @@ const NavBar = ({ user }) => {
                                             >
                                                 <Text as="button"> Create Tag</Text>
                                             </a>
-                                            <Text as="button">Events</Text>
                                             <a href="/signIn">
                                                 <Text as="button"
                                                     onClick={() =>
@@ -70,8 +69,25 @@ const NavBar = ({ user }) => {
                                         </>
                                     ) : (
                                         <>
-                                            <Text as="button">My Page</Text>
-                                            <Text as="button">My Tags</Text>
+                                            <a
+                                                href="/dashboard"
+                                            >
+                                                <Text as="button">My Page</Text>
+                                            </a>
+                                            <a
+                                                href="/dept/tag"
+                                            >
+                                                <Text as="button">My Tags</Text>
+                                            </a>
+                                            <a
+                                                href='/signIn'
+                                            >
+                                                <Text as="button"
+                                                    onClick={() => localStorage.clear()}
+                                                >
+                                                    Logout
+                                                </Text>
+                                            </a>
                                         </>
                                     )
                                 }
@@ -101,7 +117,6 @@ const NavBar = ({ user }) => {
                                                     >
                                                         <Text as="button"> Create Tag</Text>
                                                     </a>
-                                                    <Text as="button">Events</Text>
                                                     <a
                                                         href="/signIn"
                                                     >
@@ -114,8 +129,25 @@ const NavBar = ({ user }) => {
                                                 </>
                                             ) : (
                                                 <>
-                                                    <Text as="button">My Page</Text>
-                                                    <Text as="button">My Tags</Text>
+                                                    <a
+                                                        href="/dashboard"
+                                                    >
+                                                        <Text as="button">My Page</Text>
+                                                    </a>
+                                                    <a
+                                                        href='/dept/tag'
+                                                    >
+                                                        <Text as="button">My Tags</Text>
+                                                    </a>
+                                                    <a
+                                                        href='/signIn'
+                                                    >
+                                                        <Text as="button"
+                                                            onClick={() => localStorage.clear()}
+                                                        >
+                                                            Logout
+                                                        </Text>
+                                                    </a>
                                                 </>
                                             )
                                         }

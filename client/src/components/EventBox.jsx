@@ -30,8 +30,8 @@ const EventBox = ({ event }) => {
                     transform: "scale(1.02)",
                     boxShadow: "lg",
                 }}
-                w={window.location.pathname === "/get/event/domestic" ? "80%" : "100%"}
-                as={window.location.pathname === "/get/event/domestic" ? "button" : null}
+                w={window.location.pathname.startsWith("/get/event") ? "80%" : "100%"}
+                as={window.location.pathname.startsWith("/get/event") ? "button" : null}
                 onClick={onOpen}
             >
                 <Text
