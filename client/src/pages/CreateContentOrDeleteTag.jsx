@@ -18,9 +18,11 @@ import { createMarketingCollateral } from "../reducers/content.reducer/content.s
 import Calendar from "react-calendar";
 import { countryList } from '../helpers/countries';
 import { createNewMarketingEvent } from '../reducers/event.reducers/event.slice';
+import { useNavigate } from 'react-router-dom';
 
 const CreateContentOrDeleteTag = () => {
 
+    const navigate = useNavigate();
     const [selectedFile, setSelectedFile] = useState(null);
     const [caption, setCaption] = useState("");
     const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
@@ -98,19 +100,56 @@ const CreateContentOrDeleteTag = () => {
                     h="50%"
                     bg="gray.100"
                 >
-                    <Flex
+                    <Box
                         h="50%"
                         bg="yellow.100"
-                        justify="center"
-                        alignItems="center"
                     >
-                        <Text
-                            as="b"
-                            fontSize={size}
+                        <Flex
+                            w="100%"
+                            h="50%"
+                            justify="center"
+                            alignItems="center"
                         >
-                            #{tagName}
-                        </Text>
-                    </Flex>
+                            <Text
+                                as="b"
+                                fontSize={size}
+                            >
+                                #{tagName}
+                            </Text>
+                        </Flex>
+                        <Flex
+                            w="100%"
+                            h="50%"
+                        // justify="center"
+                        // alignItems="center"
+                        >
+                            <Flex
+                                justify="center"
+                                alignItems="center"
+                                w="50%"
+                            >
+                                <Button
+                                    size={buttonSize}
+                                    onClick={() => navigate(`/get/content/${tagName}`)}
+                                >
+                                    Collaterals
+                                </Button>
+                            </Flex>
+                            <Flex
+                                justify="center"
+                                alignItems="center"
+                                w="50%"
+
+                            >
+                                <Button
+                                    size={buttonSize}
+                                    onClick={() => navigate(`/get/event/${tagName}`)}
+                                >
+                                    Events
+                                </Button>
+                            </Flex>
+                        </Flex>
+                    </Box>
                     <Flex
                         h="50%"
                         bg="blue.100"

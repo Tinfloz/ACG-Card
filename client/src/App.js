@@ -25,6 +25,7 @@ import GetContentByTag from './pages/GetContentByTag';
 import ScannedCard from './pages/ScannedCard';
 import 'react-calendar/dist/Calendar.css';
 import "./calendar.css"
+import GetEventsByTag from './pages/GetEventsByTag';
 
 function App() {
 
@@ -49,6 +50,7 @@ function App() {
             <Route path="/dashboard" element={requireAuth(<Dashboard />)} />
             <Route path="/dept/tag" element={requireAuth(<TagPageNonMarketing />)} />
             <Route path="/get/content/:tag" element={requireAuth(<GetContentByTag />)} />
+            <Route path="/get/event/:tag" element={requireAuth(<GetEventsByTag />)} />
             <Route path="/scanned/card/:associate" element={<ScannedCard />} />
           </Routes>
         </Router>

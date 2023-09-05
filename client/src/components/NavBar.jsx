@@ -15,13 +15,11 @@ import {
     useBreakpointValue,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from '@chakra-ui/icons';
-import { useParams } from 'react-router-dom';
 
 const NavBar = ({ user }) => {
 
     const { isOpen, onOpen, onClose } = useDisclosure();
     const btnRef = useRef();
-    const { associate } = useParams();
 
     // Check if the screen size is small (base) to determine whether to show the drawer
     const isSmallScreen = useBreakpointValue({ base: true, md: false });
@@ -44,15 +42,31 @@ const NavBar = ({ user }) => {
                                 />
                             </Box>
                         ) : ( // Display menu contents on large screens
-                            <HStack spacing="2.5vh">
+                            <HStack spacing="3vh">
 
                                 {
                                     user?.role === "Marketing" ? (
                                         <>
-                                            <Text as="button">My tags</Text>
-                                            <Text as="button">Content</Text>
+                                            <a
+                                                href="/get/tags"
+                                            >
+                                                <Text as="button">My tags</Text>
+                                            </a>
+                                            <a
+                                                href='/create/tag'
+                                            >
+                                                <Text as="button"> Create Tag</Text>
+                                            </a>
                                             <Text as="button">Events</Text>
-                                            <Text as="button">Logout</Text>
+                                            <a href="/signIn">
+                                                <Text as="button"
+                                                    onClick={() =>
+                                                        localStorage.clear()
+                                                    }
+                                                >
+                                                    Logout
+                                                </Text>
+                                            </a>
                                         </>
                                     ) : (
                                         <>
@@ -79,10 +93,24 @@ const NavBar = ({ user }) => {
                                         {
                                             user?.role === "Marketing" ? (
                                                 <>
-                                                    <Text as="button">My tags</Text>
-                                                    <Text as="button">Content</Text>
+                                                    <a href="/get/tags">
+                                                        <Text as="button">My tags</Text>
+                                                    </a>
+                                                    <a
+                                                        href="/create/tag"
+                                                    >
+                                                        <Text as="button"> Create Tag</Text>
+                                                    </a>
                                                     <Text as="button">Events</Text>
-                                                    <Text as="button">Logout</Text>
+                                                    <a
+                                                        href="/signIn"
+                                                    >
+                                                        <Text as="button"
+                                                            onClick={() => localStorage.clear()}
+                                                        >
+                                                            Logout
+                                                        </Text>
+                                                    </a>
                                                 </>
                                             ) : (
                                                 <>
@@ -97,7 +125,8 @@ const NavBar = ({ user }) => {
                         </Drawer>
                     </Flex>
                 </>
-            )}
+            )
+            }
         </>
     )
 }

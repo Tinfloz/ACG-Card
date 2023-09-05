@@ -175,6 +175,7 @@ const getAllEventsByTag = async (req, res) => {
             eventsArray
         });
     } catch (error) {
+        console.error(error)
         res.status(400).json({
             success: true,
             error: error.errors?.[0]?.message || error

@@ -12,7 +12,6 @@ const GetContentByTag = () => {
     const dispatch = useDispatch();
 
     const contentArray = useSelector(state => state.content.content);
-    console.log(contentArray)
 
     useEffect(() => {
         (async () => {

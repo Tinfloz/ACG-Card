@@ -28,7 +28,9 @@ const WordBox = ({ words }) => {
                         key={el._id}
                         as="button"
                         fontSize={buttonFontSize}
-                        onClick={() => navigate(`/tag/${el.tag}`)}
+                        onClick={() => {
+                            navigate(`/tag/${el.tag}`)
+                        }}
                     >
                         #{el.tag}
                     </Text>
