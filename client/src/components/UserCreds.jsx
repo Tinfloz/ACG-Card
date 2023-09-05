@@ -40,6 +40,7 @@ const UserCreds = ({ first }) => {
                 border="1px"
                 borderColor="gray.200"
                 borderRadius="2px"
+                backgroundColor="rgba(0, 0, 0, 0.65)"
                 m="auto"
             >
                 <Flex
@@ -49,7 +50,7 @@ const UserCreds = ({ first }) => {
                     borderBottom="1px"
                     borderBottomColor="gray.200"
                 >
-                    <Text as="b">
+                    <Text as="b" color="white">
                         {first ? "Register to ACG Card" : "Login to use ACG Card"}
                     </Text>
                 </Flex>
@@ -61,10 +62,10 @@ const UserCreds = ({ first }) => {
                 >
                     <VStack spacing={4} width="100%">
                         <Input placeholder="Enter your email" w="100%" name="email" value={creds.email}
-                            onChange={handleChange}
+                            onChange={handleChange} color="white"
                         />
                         <Input placeholder="Enter your password" w="100%" name="password" value={creds.password}
-                            onChange={handleChange}
+                            onChange={handleChange} color="white"
                         />
                         <Button w="50%" onClick={handleClick}>
                             {first ? "Register" : "Login"}

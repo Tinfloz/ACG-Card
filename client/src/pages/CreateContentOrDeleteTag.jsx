@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
     Box, Flex, useBreakpointValue,
@@ -66,6 +66,7 @@ const CreateContentOrDeleteTag = () => {
     const buttonSize = useBreakpointValue({ base: 'sm', md: 'md', lg: 'lg' });
 
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const { isOpen: isSecondOpen, onOpen: onSecondOpen, onClose: onSecondClose } = useDisclosure();
 
     const dispatch = useDispatch();
 
@@ -212,11 +213,11 @@ const CreateContentOrDeleteTag = () => {
                             <Button
                                 size={buttonSize}
                                 fontSize="sm"
-                                onClick={onOpen}
+                                onClick={onSecondOpen}
                             >
                                 {isLargerThan768 ? "Create Event" : "Event"}
                             </Button>
-                            <Modal isOpen={isOpen} onClose={onClose}>
+                            <Modal isOpen={isSecondOpen} onClose={onSecondClose}>
                                 <ModalOverlay />
                                 <ModalContent maxW={['90%', '80%', '60%']}>
                                     <ModalHeader>Create Event</ModalHeader>
@@ -242,7 +243,10 @@ const CreateContentOrDeleteTag = () => {
                                         </VStack>
                                     </ModalBody>
                                     <ModalFooter>
-                                        <Button colorScheme="blue" onClick={async () => await handleCreateEvent()}>
+                                        <Button colorScheme="blue" onClick={async () => {
+                                            await handleCreateEvent();
+                                            onSecondClose();
+                                        }}>
                                             Create
                                         </Button>
                                     </ModalFooter>
