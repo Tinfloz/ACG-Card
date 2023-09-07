@@ -15,7 +15,8 @@ const SetRole = () => {
         role: "",
         phone: "",
         linkedIn: "",
-        code: ""
+        code: "",
+        bio: ""
     });
 
     const [selectedFile, setSelectedFile] = useState(null);
@@ -68,6 +69,9 @@ const SetRole = () => {
                     <Input type="file" w={inputGroupWidth} bg="white" onChange={handleFileChange} accept="image/*" />
                     <Input placeholder='Enter LinkedIn' name="linkedIn" value={role.linkedIn} onChange={handleChange} bg="white"
                         w={inputGroupWidth}
+                    />
+                    <Input placeholder='Enter a bio' w={inputGroupWidth} name="bio" value={role.bio} bg="white"
+                        onChange={handleChange}
                     />
                     <HStack w={inputGroupWidth}>
                         <InputGroup w="60%">

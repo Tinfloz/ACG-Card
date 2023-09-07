@@ -50,18 +50,18 @@ const getAllEventUser = async (token) => {
             Authorization: `Bearer ${token}`
         }
     };
-    console.log(config);
     const response = await axios.get(API_USER + "/get/user/event", config);
-
     return response.data.userContentArray;
-}
+};
+
+
 
 const contentService = {
     createContent,
     getAllContentByTag,
     deleteContent,
     getAllContentUser,
-    getAllEventUser
+    getAllEventUser,
 };
 
 export default contentService;

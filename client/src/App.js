@@ -26,6 +26,8 @@ import ScannedCard from './pages/ScannedCard';
 import 'react-calendar/dist/Calendar.css';
 import "./calendar.css"
 import GetEventsByTag from './pages/GetEventsByTag';
+import SetPriority from './pages/SetPriority';
+import GetCountriesForPriority from './pages/GetCountriesForPriority';
 
 function App() {
 
@@ -61,6 +63,8 @@ function App() {
             <Route path="/get/content/:tag" element={requireMarketingAuth(<GetContentByTag />)} />
             <Route path="/get/event/:tag" element={requireMarketingAuth(<GetEventsByTag />)} />
             <Route path="/scanned/card/:associate" element={<ScannedCard />} />
+            <Route path="/tags/:location" element={requireAuth(<SetPriority />)} />
+            <Route path="/my/locations" element={<GetCountriesForPriority />} />
           </Routes>
         </Router>
       </Box>

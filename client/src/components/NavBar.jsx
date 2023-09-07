@@ -79,6 +79,9 @@ const NavBar = ({ user }) => {
                                             >
                                                 <Text as="button">My Tags</Text>
                                             </a>
+                                            <a href="/my/locations">
+                                                <Text as="button">Prioritise Tags</Text>
+                                            </a>
                                             <a
                                                 href='/signIn'
                                             >
@@ -138,6 +141,9 @@ const NavBar = ({ user }) => {
                                                         href='/dept/tag'
                                                     >
                                                         <Text as="button">My Tags</Text>
+                                                    </a>
+                                                    <a href="/my/locations">
+                                                        <Text as="button">Prioritise Tags</Text>
                                                     </a>
                                                     <a
                                                         href='/signIn'

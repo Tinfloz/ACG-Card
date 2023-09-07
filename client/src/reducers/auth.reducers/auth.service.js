@@ -26,7 +26,11 @@ const setUserRole = async (token, roleDetails) => {
         }
     };
     const response = await axios.put(API_URL + "/set/role", roleDetails, config);
-    return response.data.user
+    const { role, userPhotoStr, linkedIn, bio } = response.data.details;
+    const user = JSON.parse(localStorage.getItem("user"));
+    const newUser = { ...user, role, userPhotoStr, linkedIn, bio };
+    localStorage.setItem("user", JSON.stringify(newUser));
+    return response.data.details;
 }
 
 const subscribeToTags = async (token, tagDetails) => {
@@ -37,10 +41,10 @@ const subscribeToTags = async (token, tagDetails) => {
     };
     const response = await axios.put(API_USER_URL + "/subscribe/tags", tagDetails, config);
     const user = JSON.parse(localStorage.getItem("user"));
-    const subscribedTags = [...user.subscribedTags, response.data.tag]
-    const newUser = { ...user, subscribedTags };
+    const newSubscribedTags = response.data.subscribedTags;
+    const newUser = { ...user, subscribedTags: newSubscribedTags };
     localStorage.setItem("user", JSON.stringify(newUser));
-    return response.data.tag
+    return response.data.subscribedTags
 };
 
 const unsubscribeTags = async (token, tagDetails) => {
@@ -51,13 +55,26 @@ const unsubscribeTags = async (token, tagDetails) => {
     };
     const response = await axios.put(API_USER_URL + "/unsubscribe/tags", tagDetails, config);
     const user = JSON.parse(localStorage.getItem("user"));
-    const newUser = { ...user, subscribedTags: response.data.tag };
+    const newSubscribedTags = response.data.subscribedTags;
+    const newUser = { ...user, subscribedTags: newSubscribedTags };
     localStorage.setItem("user", JSON.stringify(newUser));
-    return response.data.tag;
-}
+    return response.data.subscribedTags;
+};
+
+const changeProfileDetails = async (token, changeDetails) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    };
+    const response = await axios.put(API_URL + "/change/profile", changeDetails, config);
+    const newUser = response.data.user;
+    localStorage.setItem("user", JSON.stringify(newUser));
+    return response.data.user;
+};
 
 const authService = {
-    registerUser, loginUser, setUserRole, subscribeToTags, unsubscribeTags
+    registerUser, loginUser, setUserRole, subscribeToTags, unsubscribeTags, changeProfileDetails
 };
 
 export default authService;

@@ -10,6 +10,7 @@ const TagPageNonMarketing = () => {
     const dispatch = useDispatch();
 
     const user = useSelector(state => state.auth.user);
+    console.log(user, "usr")
     const tags = useSelector(state => state.tag.tag);
 
     console.log(tags)
@@ -17,13 +18,15 @@ const TagPageNonMarketing = () => {
     const textFontSize = useBreakpointValue({ base: 'xx-small', md: 'xl' });
     const selectSize = useBreakpointValue({ base: "85%", md: "60%" })
 
+    const displaySubscribedtags = () => {
+        const itrArray = user?.subscribedTags?.reduce((a, b) => a.concat(b.tags), []);
+        const newTagArray = tags.filter(el => itrArray.includes(el._id));
+        return newTagArray;
+    }
+
     const displayUnSubscribedtags = () => {
-        const itrArray = user?.subscribedTags?.map(el => el?._id?.toString());
-        const newTagArray = tags.filter(el => {
-            if (!itrArray.includes(el._id)) {
-                return el
-            };
-        });
+        const itrArray = user?.subscribedTags?.reduce((a, b) => a.concat(b.tags), []);
+        const newTagArray = tags.filter(el => !itrArray.includes(el._id));
         return newTagArray;
     }
 
@@ -74,7 +77,6 @@ const TagPageNonMarketing = () => {
                             minH="100vh"
                         >
                             <Flex
-                                // h="50%"
                                 w="50%"
                                 minH="100vh"
                                 bg="green.100"
@@ -102,7 +104,6 @@ const TagPageNonMarketing = () => {
                                 </VStack>
                             </Flex>
                             <Flex
-                                // h="50%"
                                 w="50%"
                                 minH="100vh"
                                 bg="red.100"
@@ -117,7 +118,7 @@ const TagPageNonMarketing = () => {
                                         }))}
                                     >
                                         {
-                                            user?.subscribedTags?.map((el, idx) => (
+                                            displaySubscribedtags().map((el, idx) => (
                                                 <option key={idx} value={el.tag}>{el.tag}</option>
                                             ))
                                         }

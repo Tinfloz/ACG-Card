@@ -42,7 +42,27 @@ export const deleteTags = createAsyncThunk("delete/tag", async (tagName, thunkAP
     };
 });
 
+export const getAllTagsForSalesByLocation = createAsyncThunk("tag/location", async (location, thunkAPI) => {
+    try {
+        const token = thunkAPI.getState().auth.user.token;
+        return await tagService.getAllMarketingTagByLocation(token, location);
+    } catch (error) {
+        const message = (error.response && error.response.data && error.response.data.message)
+            || error.message || error.toString();
+        return thunkAPI.rejectWithValue(message);
+    };
+});
 
+export const setPrioirity = createAsyncThunk("set/priority", async (priorityDetails, thunkAPI) => {
+    try {
+        const token = thunkAPI.getState().auth.user.token;
+        return await tagService.setPriorityByCountry(token, priorityDetails);
+    } catch (error) {
+        const message = (error.response && error.response.data && error.response.data.message)
+            || error.message || error.toString();
+        return thunkAPI.rejectWithValue(message);
+    };
+});
 
 const tagSlice = createSlice({
     name: "tag",
@@ -95,7 +115,31 @@ const tagSlice = createSlice({
                 state.isError = true;
                 state.message = action.payload;
             })
-
+            .addCase(getAllTagsForSalesByLocation.pending, state => {
+                state.isLoading = true;
+            })
+            .addCase(getAllTagsForSalesByLocation.fulfilled, (state, action) => {
+                state.isLoading = true;
+                state.isSuccess = true;
+                state.tag = action.payload;
+            })
+            .addCase(getAllTagsForSalesByLocation.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+            })
+            .addCase(setPrioirity.pending, state => {
+                state.isLoading = true;
+            })
+            .addCase(setPrioirity.fulfilled, state => {
+                state.isLoading = false;
+                state.isSuccess = true;
+            })
+            .addCase(setPrioirity.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+            })
     }
 });
 

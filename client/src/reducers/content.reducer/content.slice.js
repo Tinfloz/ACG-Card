@@ -54,6 +54,8 @@ export const getAllLoggedInUserContent = createAsyncThunk("content/all", async (
     };
 });
 
+
+
 const contentSlice = createSlice({
     name: "content",
     initialState,
@@ -118,6 +120,7 @@ const contentSlice = createSlice({
                 state.isError = true;
                 state.message = action.payload;
             })
+
     }
 });
 

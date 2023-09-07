@@ -21,6 +21,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    bio: {
+        type: String
+    },
     phone: {
         type: String,
     },
@@ -40,9 +43,21 @@ const userSchema = new mongoose.Schema({
         type: String
     },
     subscribedTags: [
+        // {
+        //     type: mongoose.Types.ObjectId,
+        //     ref: "Tags"
+        // }
         {
-            type: mongoose.Types.ObjectId,
-            ref: "Tags"
+            country: {
+                type: String,
+                required: true
+            },
+            tags: [
+                {
+                    type: mongoose.Types.ObjectId,
+                    ref: "Tags"
+                }
+            ]
         }
     ]
 }, { timestamps: true })

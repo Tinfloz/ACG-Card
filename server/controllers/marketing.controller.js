@@ -55,6 +55,7 @@ const getAllTags = async (req, res) => {
             tags
         })
     } catch (error) {
+        console.error(error)
         res.status(400).json({
             success: false,
             error: error.errors?.[0]?.message || error

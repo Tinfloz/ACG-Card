@@ -67,7 +67,12 @@ const setRole = async (req, res) => {
         const user = await User.findByIdAndUpdate(req.user._id, req.body, { new: true });
         res.status(200).json({
             success: true,
-            user
+            details: {
+                role: user.role,
+                userPhotoStr: user.userPhotoStr,
+                linkedIn: user.linkedIn,
+                bio: user.bio
+            }
         });
     } catch (error) {
         console.error(error)
@@ -78,6 +83,25 @@ const setRole = async (req, res) => {
     };
 };
 
+const changeUserBioAndPhoto = async (req, res) => {
+    try {
+        const { bio, userPhotoStr } = req.body;
+        const user = await User.findById(req.user._id);
+        user.bio = bio || user.bio;
+        user.userPhotoStr = userPhotoStr || user.userPhotoStr;
+        await user.save();
+        res.status(200).json({
+            success: true,
+            user
+        });
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            error: error.errors?.[0]?.message || error
+        });
+    };
+};
+
 export {
-    signUp, signIn, setRole
+    signUp, signIn, setRole, changeUserBioAndPhoto
 }
