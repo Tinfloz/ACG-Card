@@ -77,7 +77,6 @@ const unsubscribeTags = async (req, res) => {
         console.log(user.subscribedTags[index].tags, "idx")
         user.subscribedTags[index].tags = user.subscribedTags[index].tags.filter(el => el.toString() !== tag._id.toString());
         await user.save();
-        await user.save();
         res.status(200).json({
             success: true,
             subscribedTags: user.subscribedTags
@@ -101,7 +100,6 @@ const getAllUserTagsByLocation = async (req, res) => {
                 model: "Tags"
             }
         });
-        console.log(user, "usr")
         const tagsOfInterest = user.subscribedTags.filter(el => el.country === (location.charAt(0).toUpperCase() + location.slice(1)))[0].tags;
         res.status(200).json({
             success: true,
