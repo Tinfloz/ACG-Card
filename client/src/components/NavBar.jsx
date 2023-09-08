@@ -26,7 +26,7 @@ const NavBar = ({ user }) => {
 
     return (
         <>
-            {!user || window.location.pathname.startsWith("/scanned/card") ? (
+            {!user || window.location.pathname.startsWith("/u") ? (
                 null
             ) : (
                 <>
