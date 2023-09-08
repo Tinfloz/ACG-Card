@@ -16,7 +16,8 @@ import Acg from "../assets/Acg.svg";
 import { FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import { BiPhoneCall } from "react-icons/bi";
 import EventBox from '../components/EventBox';
-import FingerprintJS from 'https://openfpcdn.io/fingerprintjs/v4';
+// import FingerprintJS from 'https://openfpcdn.io/fingerprintjs/v4';
+import FingerprintJS from "@fingerprintjs/fingerprintjs";
 
 const ScannedCard = () => {
 
