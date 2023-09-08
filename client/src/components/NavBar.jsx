@@ -48,14 +48,32 @@ const NavBar = ({ user }) => {
                                     user?.role === "Marketing" ? (
                                         <>
                                             <a
+                                                href="/dashboard"
+                                            >
+                                                <Text as="button">My Page</Text>
+                                            </a>
+                                            <a
+                                                href='/dept/tag'
+                                            >
+                                                <Text as="button">My Tags</Text>
+                                            </a>
+                                            <a href="/my/locations">
+                                                <Text as="button">Prioritise Tags</Text>
+                                            </a>
+                                            <a
                                                 href="/get/tags"
                                             >
-                                                <Text as="button">My tags</Text>
+                                                <Text as="button">Check Tags</Text>
                                             </a>
                                             <a
                                                 href='/create/tag'
                                             >
                                                 <Text as="button"> Create Tag</Text>
+                                            </a>
+                                            <a
+                                                href='/change/details'
+                                            >
+                                                <Text as="button"> Settings</Text>
                                             </a>
                                             <a href="/signIn">
                                                 <Text as="button"
@@ -81,6 +99,11 @@ const NavBar = ({ user }) => {
                                             </a>
                                             <a href="/my/locations">
                                                 <Text as="button">Prioritise Tags</Text>
+                                            </a>
+                                            <a
+                                                href='/change/details'
+                                            >
+                                                <Text as="button"> Settings</Text>
                                             </a>
                                             <a
                                                 href='/signIn'
@@ -112,13 +135,31 @@ const NavBar = ({ user }) => {
                                         {
                                             user?.role === "Marketing" ? (
                                                 <>
+                                                    <a
+                                                        href="/dashboard"
+                                                    >
+                                                        <Text as="button">My Page</Text>
+                                                    </a>
+                                                    <a
+                                                        href='/dept/tag'
+                                                    >
+                                                        <Text as="button">My Tags</Text>
+                                                    </a>
+                                                    <a href="/my/locations">
+                                                        <Text as="button">Prioritise Tags</Text>
+                                                    </a>
                                                     <a href="/get/tags">
-                                                        <Text as="button">My tags</Text>
+                                                        <Text as="button">Check Tags</Text>
                                                     </a>
                                                     <a
                                                         href="/create/tag"
                                                     >
                                                         <Text as="button"> Create Tag</Text>
+                                                    </a>
+                                                    <a
+                                                        href='/change/details'
+                                                    >
+                                                        <Text as="button"> Settings</Text>
                                                     </a>
                                                     <a
                                                         href="/signIn"
@@ -144,6 +185,11 @@ const NavBar = ({ user }) => {
                                                     </a>
                                                     <a href="/my/locations">
                                                         <Text as="button">Prioritise Tags</Text>
+                                                    </a>
+                                                    <a
+                                                        href='/change/details'
+                                                    >
+                                                        <Text as="button"> Settings</Text>
                                                     </a>
                                                     <a
                                                         href='/signIn'

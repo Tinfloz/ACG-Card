@@ -86,15 +86,17 @@ const setRole = async (req, res) => {
 const changeUserBioAndPhoto = async (req, res) => {
     try {
         const { bio, userPhotoStr } = req.body;
+        console.log(bio)
         const user = await User.findById(req.user._id);
         user.bio = bio || user.bio;
         user.userPhotoStr = userPhotoStr || user.userPhotoStr;
         await user.save();
         res.status(200).json({
             success: true,
-            user
+            changes: req.body,
         });
     } catch (error) {
+        console.error(error)
         res.status(400).json({
             success: false,
             error: error.errors?.[0]?.message || error

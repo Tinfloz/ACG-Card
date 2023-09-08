@@ -68,9 +68,11 @@ const changeProfileDetails = async (token, changeDetails) => {
         }
     };
     const response = await axios.put(API_URL + "/change/profile", changeDetails, config);
-    const newUser = response.data.user;
+    const { userPhotoStr, bio } = response.data.changes;
+    const user = JSON.parse(localStorage.getItem("user"));
+    const newUser = { ...user, bio, userPhotoStr };
     localStorage.setItem("user", JSON.stringify(newUser));
-    return response.data.user;
+    return response.data.changes;
 };
 
 const authService = {

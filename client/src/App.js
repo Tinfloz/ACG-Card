@@ -28,6 +28,7 @@ import "./calendar.css"
 import GetEventsByTag from './pages/GetEventsByTag';
 import SetPriority from './pages/SetPriority';
 import GetCountriesForPriority from './pages/GetCountriesForPriority';
+import Settings from './pages/Settings';
 
 function App() {
 
@@ -62,9 +63,10 @@ function App() {
             <Route path="/dept/tag" element={requireAuth(<TagPageNonMarketing />)} />
             <Route path="/get/content/:tag" element={requireMarketingAuth(<GetContentByTag />)} />
             <Route path="/get/event/:tag" element={requireMarketingAuth(<GetEventsByTag />)} />
-            <Route path="/scanned/card/:associate" element={<ScannedCard />} />
+            <Route path="/u/:associate" element={<ScannedCard />} />
             <Route path="/tags/:location" element={requireAuth(<SetPriority />)} />
-            <Route path="/my/locations" element={<GetCountriesForPriority />} />
+            <Route path="/my/locations" element={requireAuth(<GetCountriesForPriority />)} />
+            <Route path="/change/details" element={requireAuth(<Settings />)} />
           </Routes>
         </Router>
       </Box>

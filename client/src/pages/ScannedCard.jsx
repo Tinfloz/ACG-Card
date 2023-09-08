@@ -74,13 +74,19 @@ const ScannedCard = () => {
                             {
                                 !isLargerThan768 &&
                                 <>
-                                    <IconButton
+                                    {/* <IconButton
                                         icon={<HamburgerIcon />}
                                         variant="outline"
                                         colorScheme="white"
                                         ref={btnRef}
                                         onClick={onOpen}
-                                    />
+                                    /> */}
+                                    <Button
+                                        ref={btnRef}
+                                        onClick={onOpen}
+                                    >
+                                        Check events
+                                    </Button>
                                     <Drawer
                                         isOpen={isOpen}
                                         placement='right'
