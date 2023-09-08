@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/auth/v1";
-const API_USER_URL = "http://localhost:5000/api/user/v1"
+const API_URL = "https://acg-card.onrender.com/api/auth/v1";
+const API_USER_URL = "https://acg-card.onrender.com/api/user/v1"
 
 const registerUser = async (creds) => {
     const response = await axios.post(API_URL + "/signUp", creds);

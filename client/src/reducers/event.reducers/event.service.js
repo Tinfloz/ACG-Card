@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/marketing/v1";
+const API_URL = "https://acg-card.onrender.com/api/marketing/v1";
 
 const createNewEvent = async (token, eventDetails) => {
     const config = {

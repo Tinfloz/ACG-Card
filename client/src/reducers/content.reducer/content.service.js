@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/marketing/v1";
-const API_USER = "http://localhost:5000/api/user/v1";
+const API_URL = "https://acg-card.onrender.com/api/marketing/v1";
+const API_USER = "https://acg-card.onrender.com/api/user/v1";
 
 const createContent = async (token, content) => {
     const { tag, contentDetails } = content;
