@@ -16,7 +16,7 @@ import Acg from "../assets/Acg.svg";
 import { FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import { BiPhoneCall } from "react-icons/bi";
 import EventBox from '../components/EventBox';
-import { HamburgerIcon } from '@chakra-ui/icons';
+import FingerprintJS from 'https://openfpcdn.io/fingerprintjs/v4';
 
 const ScannedCard = () => {
 
@@ -31,7 +31,6 @@ const ScannedCard = () => {
 
     useEffect(() => {
         (async () => {
-            const FingerprintJS = await import('https://openfpcdn.io/fingerprintjs/v4');
             const fp = await FingerprintJS.load();
             const result = await fp.get();
             const visitorId = result.visitorId;
