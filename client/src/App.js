@@ -23,7 +23,7 @@ import Dashboard from './pages/Dashboard';
 import TagPageNonMarketing from './pages/TagPageNonMarketing';
 import GetContentByTag from './pages/GetContentByTag';
 import ScannedCard from './pages/ScannedCard';
-import 'react-calendar/dist/Calendar.css';
+// import 'react-calendar/dist/Calendar.css';
 import "./calendar.css"
 import GetEventsByTag from './pages/GetEventsByTag';
 import SetPriority from './pages/SetPriority';
