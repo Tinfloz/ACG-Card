@@ -192,6 +192,12 @@ const ScannedCard = () => {
                             </Box>
                         </Flex>
                         <Flex
+                            p={3}
+                            bg="gray.50"
+                        >
+                            {contentToDisplay?.associate?.bio}
+                        </Flex>
+                        <Flex
                             overflow="hidden"
                         >
                             {/* First Part */}
