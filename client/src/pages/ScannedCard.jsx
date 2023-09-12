@@ -15,13 +15,12 @@ import CardContentBox from '../components/CardContentBox';
 import Acg from "../assets/Acg.svg";
 import { FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import { BiPhoneCall } from "react-icons/bi";
-// import EventBox from '../components/EventBox';
 import EventCardBox from '../components/EventCardBox';
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 
 const ScannedCard = () => {
 
-    const response = fetch("https://geolocation-db.com/json/").then(e => e.json()).catch(err => console.error(err));
+    const response = fetch("https://ipapi.co/json/").then(e => e.json()).catch(err => console.error(err));
     const dispatch = useDispatch();
     const { associate } = useParams();
     const contentToDisplay = useSelector(state => state.card.content);
@@ -36,7 +35,7 @@ const ScannedCard = () => {
             const result = await fp.get();
             const visitorId = result.visitorId;
             const finalResponse = await response;
-            const sendResponse = { IPv4: finalResponse.IPv4, country: finalResponse.country_name, lat: finalResponse.latitude, lng: finalResponse.longitude }
+            const sendResponse = { IPv6: finalResponse.ip, country: finalResponse.country_name, lat: finalResponse.latitude, lng: finalResponse.longitude }
             const userDetails = { ...sendResponse, fingerprint: visitorId };
             const details = { associate, userDetails };
             await dispatch(getAllCardContentScanned(details));
@@ -85,7 +84,7 @@ const ScannedCard = () => {
                                         ref={btnRef}
                                         onClick={onOpen}
                                     >
-                                        Check events
+                                        Upcoming events
                                     </Button>
                                     <Drawer
                                         isOpen={isOpen}
