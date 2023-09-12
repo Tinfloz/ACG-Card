@@ -15,7 +15,8 @@ import CardContentBox from '../components/CardContentBox';
 import Acg from "../assets/Acg.svg";
 import { FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import { BiPhoneCall } from "react-icons/bi";
-import EventBox from '../components/EventBox';
+// import EventBox from '../components/EventBox';
+import EventCardBox from '../components/EventCardBox';
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 
 const ScannedCard = () => {
@@ -100,7 +101,7 @@ const ScannedCard = () => {
                                                 <VStack>
                                                     {
                                                         contentToDisplay?.finalEventArray?.map(el => (
-                                                            <EventBox event={el} />
+                                                            <EventCardBox event={el} />
                                                         ))
                                                     }
                                                 </VStack>
@@ -247,7 +248,7 @@ const ScannedCard = () => {
                                     <VStack w="100%" pb="15vh" pl={3} pr={3} pt={5}>
                                         {
                                             contentToDisplay?.finalEventArray?.map(el => (
-                                                <EventBox event={el} />
+                                                <EventCardBox event={el} />
                                             ))
                                         }
                                     </VStack>

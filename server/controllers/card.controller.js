@@ -11,6 +11,7 @@ const getContentByTagAndLocation = async (req, res) => {
             throw "associate not found"
         };
         const { country, IPv4, lat, lng, fingerprint } = req.body;
+        console.log(req.body);
         if (!associate || !country || !IPv4 || !lat || !lng || !fingerprint) {
             throw new Error("Required information is missing.");
         };
@@ -28,9 +29,12 @@ const getContentByTagAndLocation = async (req, res) => {
             scannedUser.associates.push(requestedAssociate._id);
             await scannedUser.save();
         };
-        const allContent = await Content.find();
-        const allEvent = await Event.find();
-        const tagsOfPremierInterest = requestedAssociate.subscribedTags.filter(el => el.country === country)[0].tags;
+        const [allContent, allEvent] = await Promise.all([
+            Content.find(),
+            Event.find()
+        ]);
+        const tagsOfPremierInterest = requestedAssociate?.subscribedTags?.filter(el => el?.country === country)[0]?.tags;
+        console.log(tagsOfPremierInterest, "tgs");
         const mostImpContent = allContent.find(doc => doc.tag.toString() === tagsOfPremierInterest[0].toString());
         const secondMostImpContent = allContent?.filter(el => tagsOfPremierInterest?.includes(el?.tag))?.filter(el => el?._id !== mostImpContent._id);
         const finalImpContent = [mostImpContent, ...secondMostImpContent];
