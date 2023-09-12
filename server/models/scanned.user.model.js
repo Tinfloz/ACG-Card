@@ -5,7 +5,7 @@ const scannedUserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    IPv4: {
+    IPv6: {
         type: String,
         required: true
     },

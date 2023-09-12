@@ -10,9 +10,9 @@ const getContentByTagAndLocation = async (req, res) => {
         if (!requestedAssociate) {
             throw "associate not found"
         };
-        const { country, IPv4, lat, lng, fingerprint } = req.body;
+        const { country, IPv6, lat, lng, fingerprint } = req.body;
         console.log(req.body);
-        if (!associate || !country || !IPv4 || !lat || !lng || !fingerprint) {
+        if (!associate || !country || !IPv6 || !lat || !lng || !fingerprint) {
             throw new Error("Required information is missing.");
         };
         let scannedUser = await ScannedUser.findOne({ fingerprint });
