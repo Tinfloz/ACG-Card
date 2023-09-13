@@ -10,7 +10,7 @@ function CardContentBox({ image }) {
         <>
             <Box
                 key={image._id}
-                width={{ base: "70%", md: "45%" }} // Adjust the width values as needed
+                width={{ base: "85%", md: "45%" }} // Adjust the width values as needed
                 padding="1rem"
                 borderWidth="1px"
                 // borderRadius="lg"
