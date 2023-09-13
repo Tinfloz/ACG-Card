@@ -13,7 +13,7 @@ import { getAllCardContentScanned } from '../reducers/card.reducer/card.slice';
 import { RingLoader } from "react-spinners";
 import CardContentBox from '../components/CardContentBox';
 import Acg from "../assets/Acg.svg";
-import { FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import { FaLinkedinIn, FaEnvelope } from 'react-icons/fa';
 import { BiPhoneCall } from "react-icons/bi";
 import EventCardBox from '../components/EventCardBox';
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
@@ -59,7 +59,8 @@ const ScannedCard = () => {
                             top="0"
                             left="0"
                             right="0"
-                            bg="#d71635"
+                            // bg="#d71635"
+                            bg="white"
                             color="white"
                             p={4}
                             boxShadow="lg"
@@ -123,6 +124,7 @@ const ScannedCard = () => {
                             boxShadow="base"
                             zIndex="1"
                             alignItems="center"
+                            bg="#d71635"
                             p={4}
                         >
 
@@ -133,17 +135,19 @@ const ScannedCard = () => {
                                 overflow="hidden" // Hide overflowing content
                                 boxShadow="base" // Add a box shadow
                                 position="relative" // Position relative for overlays
+                                display="grid"
+                                placeContent="center"
                             >
                                 <img
                                     src={contentToDisplay?.associate?.image}
                                     alt="Person"
-                                    style={{
-                                        width: "90%", // Make the image responsive
-                                        height: "auto", // Maintain aspect ratio
-                                        position: "absolute", // Position the image within the circle
-                                        top: 0,
-                                        left: 0,
-                                    }}
+                                // style={{
+                                //     width: "90%", // Make the image responsive
+                                //     height: "auto", // Maintain aspect ratio
+                                //     position: "absolute", // Position the image within the circle
+                                //     top: 0,
+                                //     left: 0,
+                                // }}
                                 />
                             </Box>
 
@@ -163,10 +167,10 @@ const ScannedCard = () => {
                                     <HStack>
                                         <a href={contentToDisplay?.associate?.linkedIn}>
                                             <Icon
-                                                as={FaLinkedin}
-                                                bg="white"
+                                                as={FaLinkedinIn}
+                                                bg="#d71635"
                                                 color="linkedin.900"
-                                                _hover={{ bg: "white" }}
+                                                // _hover={{ bg: "white" }}
                                                 boxSize={8}
                                                 cursor="pointer"
                                                 p={0}
@@ -175,9 +179,9 @@ const ScannedCard = () => {
                                         <a href={`mailto:${contentToDisplay?.associate?.email}`}>
                                             <Icon
                                                 as={FaEnvelope}
-                                                bg="white"
+                                                bg="#d71635"
                                                 color="linkedin.500"
-                                                _hover={{ bg: "white" }}
+                                                // _hover={{ bg: "white" }}
                                                 cursor="pointer"
                                                 boxSize={8}
                                             />
@@ -185,9 +189,9 @@ const ScannedCard = () => {
                                         <a href={`tel:+${contentToDisplay?.associate?.code}${contentToDisplay?.associate?.phone}`}>
                                             <Icon
                                                 as={BiPhoneCall}
-                                                bg="white"
+                                                bg="#d71635"
                                                 color="linkedin.500"
-                                                _hover={{ bg: "white" }}
+                                                // _hover={{ bg: "white" }}
                                                 cursor="pointer"
                                                 boxSize={8}
                                             />
