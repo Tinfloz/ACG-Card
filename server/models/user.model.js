@@ -42,11 +42,10 @@ const userSchema = new mongoose.Schema({
     code: {
         type: String
     },
+    designation: {
+        type: String
+    },
     subscribedTags: [
-        // {
-        //     type: mongoose.Types.ObjectId,
-        //     ref: "Tags"
-        // }
         {
             country: {
                 type: String,

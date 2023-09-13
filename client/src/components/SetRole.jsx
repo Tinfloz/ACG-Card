@@ -16,7 +16,8 @@ const SetRole = () => {
         phone: "",
         linkedIn: "",
         code: "",
-        bio: ""
+        bio: "",
+        designation: ""
     });
 
     const [selectedFile, setSelectedFile] = useState(null);
@@ -56,7 +57,7 @@ const SetRole = () => {
         <>
             <Box
                 w={boxWidth}
-                h="40%"
+                h="60%"
                 border="1px"
                 borderColor="gray.200"
                 borderRadius="2px"
@@ -71,6 +72,9 @@ const SetRole = () => {
                         w={inputGroupWidth}
                     />
                     <Input placeholder='Enter a bio' w={inputGroupWidth} name="bio" value={role.bio} bg="white"
+                        onChange={handleChange}
+                    />
+                    <Input placeholder="Enter your designation" w={inputGroupWidth} name="designation" value={role.designation} bg="white"
                         onChange={handleChange}
                     />
                     <HStack w={inputGroupWidth}>
@@ -95,7 +99,7 @@ const SetRole = () => {
                     >
                         Upload Details
                     </Button>
-                </VStack>
+                </VStack >
             </Box >
         </>
     )

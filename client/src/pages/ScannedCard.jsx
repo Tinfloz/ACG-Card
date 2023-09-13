@@ -168,6 +168,13 @@ const ScannedCard = () => {
                                 </Flex>
                                 <Flex
                                     alignItems="center"
+                                    as="b"
+                                    color="white"
+                                >
+                                    {contentToDisplay?.associate?.designation}
+                                </Flex>
+                                <Flex
+                                    alignItems="center"
                                 >
                                     <HStack>
                                         <a href={contentToDisplay?.associate?.linkedIn}>

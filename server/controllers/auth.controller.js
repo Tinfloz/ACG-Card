@@ -71,7 +71,8 @@ const setRole = async (req, res) => {
                 role: user.role,
                 userPhotoStr: user.userPhotoStr,
                 linkedIn: user.linkedIn,
-                bio: user.bio
+                bio: user.bio,
+                designation: user.designation
             }
         });
     } catch (error) {
