@@ -13,14 +13,15 @@ function CardContentBox({ image }) {
                 width={{ base: "70%", md: "45%" }} // Adjust the width values as needed
                 padding="1rem"
                 borderWidth="1px"
-                borderRadius="lg"
-                boxShadow="md"
+                // borderRadius="lg"
+                borderRadius="md"
+                // boxShadow="md"
                 position="relative"
-                transition="transform 0.2s, box-shadow 0.2s"
-                _hover={{
-                    transform: "scale(1.02)",
-                    boxShadow: "lg",
-                }}
+            // transition="transform 0.2s, box-shadow 0.2s"
+            // _hover={{
+            //     transform: "scale(1.02)",
+            //     boxShadow: "lg",
+            // }}
             >
                 <Image
                     src={image.contentStr}
