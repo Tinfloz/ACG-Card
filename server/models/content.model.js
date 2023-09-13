@@ -11,7 +11,6 @@ const contentSchema = new mongoose.Schema({
     },
     caption: {
         type: String,
-        required: true
     }
 }, { timestamps: true });
 
