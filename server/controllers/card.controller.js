@@ -7,6 +7,7 @@ const getContentByTagAndLocation = async (req, res) => {
     try {
         const { associate } = req.params;
         const requestedAssociate = await User.findOne({ searchKey: associate });
+        console.log(requestedAssociate, "dhi");
         if (!requestedAssociate) {
             throw "associate not found"
         };
@@ -32,9 +33,10 @@ const getContentByTagAndLocation = async (req, res) => {
             Content.find(),
             Event.find()
         ]);
+
         const tagsOfPremierInterest = requestedAssociate?.subscribedTags?.filter(el => el?.country === country)[0]?.tags;
+        console.log(tagsOfPremierInterest);
         const mostImpContent = allContent.find(doc => doc.tag.toString() === tagsOfPremierInterest[0].toString());
-        console.log(mostImpContent, "most");
         const secondMostImpContent = allContent?.filter(el => tagsOfPremierInterest?.includes(el?.tag))?.filter(el => el?._id !== mostImpContent._id);
         console.log(secondMostImpContent, "second")
         const finalImpContent = [mostImpContent, ...secondMostImpContent];
