@@ -16,7 +16,7 @@ const signUp = async (req, res) => {
         };
         const name = email.split("@")[0].split(".");
         const userName = `${name[0][0].toUpperCase() + name[0].slice(1)} ${name[1][0].toUpperCase() + name[1].slice(1)}`
-        const searchKey = email.split("@")[0].split(".")[0];
+        const searchKey = email.split("@")[0].split(".")[0] + email.split("@")[0].split(".")[1];
         const user = await User.create({ ...req.body, userName, searchKey });
         if (!user) {
             throw "user could not be created!"
