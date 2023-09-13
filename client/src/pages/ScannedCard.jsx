@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
     Box, VStack, Flex, useMediaQuery, Image, HStack, Icon, Drawer,
     DrawerBody,
@@ -17,6 +17,8 @@ import { FaLinkedinIn, FaEnvelope } from 'react-icons/fa';
 import { BiPhoneCall } from "react-icons/bi";
 import EventCardBox from '../components/EventCardBox';
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
+import './SmoothDivAnimation.css'
+import { CSSTransition } from 'react-transition-group';
 
 const ScannedCard = () => {
 
@@ -24,10 +26,19 @@ const ScannedCard = () => {
     const dispatch = useDispatch();
     const { associate } = useParams();
     const contentToDisplay = useSelector(state => state.card.content);
-
+    const [display, setDisplay] = useState(true);
     const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
     const btnRef = useRef();
+    const changeContRef = useRef();
     const { onOpen, isOpen, onClose } = useDisclosure();
+
+    const handleScroll = () => {
+        if (changeContRef.current.scrollTop === 0) {
+            setDisplay(prevState => true)
+        } else {
+            setDisplay(prevState => false)
+        }
+    }
 
     useEffect(() => {
         (async () => {
@@ -141,13 +152,6 @@ const ScannedCard = () => {
                                 <img
                                     src={contentToDisplay?.associate?.image}
                                     alt="Person"
-                                // style={{
-                                //     width: "90%", // Make the image responsive
-                                //     height: "auto", // Maintain aspect ratio
-                                //     position: "absolute", // Position the image within the circle
-                                //     top: 0,
-                                //     left: 0,
-                                // }}
                                 />
                             </Box>
 
@@ -158,6 +162,7 @@ const ScannedCard = () => {
                                 <Flex
                                     alignItems="center"
                                     as="b"
+                                    color="white"
                                 >
                                     {contentToDisplay?.associate?.name}
                                 </Flex>
@@ -200,12 +205,19 @@ const ScannedCard = () => {
                                 </Flex>
                             </Box>
                         </Flex>
-                        <Flex
-                            p={3}
-                            bg="gray.50"
+                        <CSSTransition
+                            in={display}
+                            timeout={300} // Adjust the duration of the transition (in milliseconds)
+                            classNames="fade"
+                            unmountOnExit
                         >
-                            {contentToDisplay?.associate?.bio}
-                        </Flex>
+                            <Flex
+                                p={3}
+                                bg="gray.50"
+                            >
+                                {contentToDisplay?.associate?.bio}
+                            </Flex>
+                        </CSSTransition>
                         <Flex
                             overflow="hidden"
                         >
@@ -213,6 +225,8 @@ const ScannedCard = () => {
                             <Box
                                 w={isLargerThan768 ? "70%" : "100%"}
                                 overflowY="scroll"
+                                ref={changeContRef}
+                                onScroll={handleScroll}
                             >
                                 <VStack
                                     pt="5vh"

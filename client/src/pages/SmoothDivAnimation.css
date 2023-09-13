@@ -1,0 +1,21 @@
+.fade-enter {
+    opacity: 0;
+    transform: translateY(-20px); /* Optional: Apply a slide-in animation */
+  }
+  
+  .fade-enter-active {
+    opacity: 1;
+    transform: translateY(0); /* Optional: Slide-in animation */
+    transition: opacity 300ms, transform 300ms;
+  }
+  
+  .fade-exit {
+    opacity: 1;
+    transform: translateY(0); /* Optional: Apply a slide-out animation */
+  }
+  
+  .fade-exit-active {
+    opacity: 0;
+    transform: translateY(-20px); /* Optional: Slide-out animation */
+    transition: opacity 300ms, transform 300ms;
+  }
