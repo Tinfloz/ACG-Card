@@ -19,6 +19,7 @@ import EventCardBox from '../components/EventCardBox';
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import './SmoothDivAnimation.css'
 import { CSSTransition } from 'react-transition-group';
+import VideoBoxComp from '../components/VideoBoxComp';
 
 const ScannedCard = () => {
 
@@ -246,6 +247,8 @@ const ScannedCard = () => {
                                             <CardContentBox image={el} key={el._id} />
                                         ))
                                     }
+                                    <VideoBoxComp src={"https://www.youtube.com/watch?v=yCLqAoUjR7I"} />
+                                    <VideoBoxComp src={"https://www.youtube.com/watch?v=hhZ1y-7ZjH0&t=3s"} />
                                 </VStack>
                             </Box>
                             {/* Second Part */}
