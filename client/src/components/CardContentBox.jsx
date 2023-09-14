@@ -36,7 +36,7 @@ function CardContentBox({ image }) {
                         height="auto"
                         borderRadius="lg"
                     />
-                    <Text mt={2} fontSize="sm" color="gray.600" fontWeight="bold" as="button">
+                    <Text mt={2} fontSize="sm" color="gray.600" fontWeight="bold" as="button" onClick={redirectToExternalWebsite}>
                         {/* {image.caption}
                          */}
                         Learn more
