@@ -247,8 +247,8 @@ const ScannedCard = () => {
                                             <CardContentBox image={el} key={el._id} />
                                         ))
                                     }
-                                    <VideoBoxComp src={"https://www.youtube.com/watch?v=yCLqAoUjR7I"} />
-                                    <VideoBoxComp src={"https://www.youtube.com/watch?v=hhZ1y-7ZjH0&t=3s"} />
+                                    <VideoBoxComp src={"https://www.youtube.com/embed/yCLqAoUjR7I?si=JB1mLrxlaaeekp-o"} />
+                                    <VideoBoxComp src={"https://www.youtube.com/embed/hhZ1y-7ZjH0?si=1leT1UrZw1OwM34F"} />
                                 </VStack>
                             </Box>
                             {/* Second Part */}

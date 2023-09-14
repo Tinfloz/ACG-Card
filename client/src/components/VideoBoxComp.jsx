@@ -20,12 +20,15 @@ const VideoBoxComp = ({ src }) => {
                 alignItems="center"
                 justifyContent="center"
             >
-                <video width="100%" controls>
-                    <source src={src} />
-                </video>
+                {/* <video width="100%" controls>
+                    {/* <source src={"https://www.youtube.com/watch?v=yCLqAoUjR7I"} /> */}
+                {/* </video> */}
+                <iframe width="560" height="315" src={src} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </Box>
         </Flex>
     )
 }
 
 export default VideoBoxComp
+
+// "https://www.youtube.com/embed/yCLqAoUjR7I?si=JB1mLrxlaaeekp-o"
