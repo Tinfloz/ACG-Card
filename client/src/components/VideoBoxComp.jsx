@@ -23,9 +23,9 @@ const VideoBoxComp = ({ src }) => {
                 {/* <video width="100%" controls>
                     {/* <source src={"https://www.youtube.com/watch?v=yCLqAoUjR7I"} /> */}
                 {/* </video> */}
-                <iframe width="560" height="315" src={src} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe width="400" height="300" src={src} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </Box>
-        </Flex>
+        </Flex >
     )
 }
 

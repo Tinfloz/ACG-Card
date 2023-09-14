@@ -243,12 +243,14 @@ const ScannedCard = () => {
                                     w="100%"
                                 >
                                     {
-                                        contentToDisplay?.finalContentArray?.map(el => (
-                                            <CardContentBox image={el} key={el._id} />
-                                        ))
+                                        <>
+                                            {contentToDisplay?.finalContentArray?.map(el => (
+                                                <CardContentBox image={el} key={el._id} />
+                                            ))}
+                                            < VideoBoxComp src={"https://www.youtube.com/embed/yCLqAoUjR7I?si=JB1mLrxlaaeekp-o"} />
+                                            <VideoBoxComp src={"https://www.youtube.com/embed/hhZ1y-7ZjH0?si=1leT1UrZw1OwM34F"} />
+                                        </>
                                     }
-                                    <VideoBoxComp src={"https://www.youtube.com/embed/yCLqAoUjR7I?si=JB1mLrxlaaeekp-o"} />
-                                    <VideoBoxComp src={"https://www.youtube.com/embed/hhZ1y-7ZjH0?si=1leT1UrZw1OwM34F"} />
                                 </VStack>
                             </Box>
                             {/* Second Part */}
